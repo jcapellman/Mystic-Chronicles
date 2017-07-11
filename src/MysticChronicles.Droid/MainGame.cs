@@ -2,12 +2,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using MysticChronicles.Managers;
+
 namespace MysticChronicles
 {
     public class MainGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private TextureManager _textureManager;
+        private Texture2D _textureSplash;
+        private int Window_Width = 0;
+        private int Window_Height = 0;
 
         public MainGame()
         {
@@ -18,6 +24,10 @@ namespace MysticChronicles
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+
+
+            Window_Height = Window.ClientBounds.Height;
+            Window_Width = Window.ClientBounds.Width;
         }
 
         /// <summary>
@@ -28,7 +38,7 @@ namespace MysticChronicles
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _textureManager = new TextureManager();
 
             base.Initialize();
         }
@@ -42,7 +52,7 @@ namespace MysticChronicles
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            _textureSplash = _textureManager.LoadTexture(Content, "UI/MainMenu");
         }
 
         /// <summary>
@@ -75,9 +85,11 @@ namespace MysticChronicles
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            spriteBatch.Draw(_textureSplash, new Rectangle(0, 0, Window_Width, Window_Height), Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
