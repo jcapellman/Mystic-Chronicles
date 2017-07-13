@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using MysticChronicles.Droid.Objects.Common;
 using MysticChronicles.Managers;
 
 namespace MysticChronicles.GameStates
@@ -13,13 +14,13 @@ namespace MysticChronicles.GameStates
         protected int width, height;
         protected List<Texture2D> textures;
 
-        protected BaseGameState(TextureManager argTextureManager, int argWidth, int argHeight)
+        protected BaseGameState(GameStateContainer container)
         {
-            textureManager = argTextureManager;
+            textureManager = container.TManager;
             textures = new List<Texture2D>();
 
-            width = argWidth;
-            height = argHeight;
+            width = container.Window_Width;
+            height = container.Window_Height;
         }
 
         public abstract void LoadContent();

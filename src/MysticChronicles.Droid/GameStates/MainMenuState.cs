@@ -1,12 +1,10 @@
-﻿using Microsoft.Xna.Framework.Content;
-
-using MysticChronicles.Managers;
+﻿using MysticChronicles.Droid.Objects.Common;
 
 namespace MysticChronicles.GameStates
 {
     public class MainMenuState : BaseGameState
     {
-        public MainMenuState(TextureManager argTextureManager, int argWidth, int argHeight) : base(argTextureManager, argWidth, argHeight)
+        public MainMenuState(GameStateContainer container) : base(container)
         {
         }
 

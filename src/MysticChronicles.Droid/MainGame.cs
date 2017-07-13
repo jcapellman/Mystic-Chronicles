@@ -1,6 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
+using MysticChronicles.Droid.Objects.Common;
+
 using MysticChronicles.GameStates;
 using MysticChronicles.Managers;
 
@@ -10,12 +13,10 @@ namespace MysticChronicles
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private TextureManager textureManager;
-
+        
         private MainMenuState stateMainMenu;
 
-        private int Window_Width = 0;
-        private int Window_Height = 0;
+        private GameStateContainer gsContainer;
 
         public MainGame()
         {
@@ -26,9 +27,6 @@ namespace MysticChronicles
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
-            
-            Window_Height = Window.ClientBounds.Height;
-            Window_Width = Window.ClientBounds.Width;
         }
 
         /// <summary>
@@ -39,6 +37,13 @@ namespace MysticChronicles
         /// </summary>
         protected override void Initialize()
         {
+            gsContainer = new GameStateContainer
+            {
+                Window_Height = Window.ClientBounds.Height,
+                Window_Width = Window.ClientBounds.Width,
+                TManager = new TextureManager(Content)
+            };
+
             base.Initialize();
         }
 
@@ -48,12 +53,9 @@ namespace MysticChronicles
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            textureManager = new TextureManager(Content);
             
-            stateMainMenu = new MainMenuState(textureManager, Window_Width, Window_Height);
+            stateMainMenu = new MainMenuState(gsContainer);
 
             stateMainMenu.LoadContent();
         }
