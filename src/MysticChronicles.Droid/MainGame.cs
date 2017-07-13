@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using MysticChronicles.GameStates;
 using MysticChronicles.Managers;
 
 namespace MysticChronicles
@@ -10,8 +10,10 @@ namespace MysticChronicles
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private TextureManager _textureManager;
-        private Texture2D _textureSplash;
+        private TextureManager textureManager;
+
+        private MainMenuState stateMainMenu;
+
         private int Window_Width = 0;
         private int Window_Height = 0;
 
@@ -24,8 +26,7 @@ namespace MysticChronicles
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
-
-
+            
             Window_Height = Window.ClientBounds.Height;
             Window_Width = Window.ClientBounds.Width;
         }
@@ -38,8 +39,6 @@ namespace MysticChronicles
         /// </summary>
         protected override void Initialize()
         {
-            _textureManager = new TextureManager();
-
             base.Initialize();
         }
 
@@ -52,7 +51,11 @@ namespace MysticChronicles
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _textureSplash = _textureManager.LoadTexture(Content, "UI/MainMenu");
+            textureManager = new TextureManager(Content);
+            
+            stateMainMenu = new MainMenuState(textureManager, Window_Width, Window_Height);
+
+            stateMainMenu.LoadContent();
         }
 
         /// <summary>
@@ -86,10 +89,8 @@ namespace MysticChronicles
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(_textureSplash, new Rectangle(0, 0, Window_Width, Window_Height), Color.White);
-            spriteBatch.End();
+            
+            stateMainMenu.Render(spriteBatch);
 
             base.Draw(gameTime);
         }
