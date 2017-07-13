@@ -58,6 +58,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameStates\BaseGameState.cs" />
+    <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Managers\TextureManager.cs" />

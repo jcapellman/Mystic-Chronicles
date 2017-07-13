@@ -5,9 +5,16 @@ namespace MysticChronicles.Managers
 {
     public class TextureManager
     {
-        internal Texture2D LoadTexture(ContentManager content, string assetName)
+        private readonly ContentManager contentManager;
+
+        public TextureManager(ContentManager argContentManager)
         {
-            return content.Load<Texture2D>(assetName);
+            contentManager = argContentManager;
+        }
+
+        internal Texture2D LoadTexture(string assetName)
+        {
+            return contentManager.Load<Texture2D>(assetName);
         }
     }
 }
