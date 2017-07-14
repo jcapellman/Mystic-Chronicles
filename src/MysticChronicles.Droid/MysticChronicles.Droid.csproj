@@ -64,6 +64,8 @@
     <Compile Include="MainGame.cs" />
     <Compile Include="Managers\TextureManager.cs" />
     <Compile Include="Objects\Common\GameStateContainer.cs" />
+    <Compile Include="Objects\Element\BaseElement.cs" />
+    <Compile Include="Objects\Element\Static\BackgroundImage.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
