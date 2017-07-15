@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using MysticChronicles.Engine.Objects.Common;
@@ -31,6 +30,11 @@ namespace MysticChronicles.Engine.GameStates
             TextureManager = textureManager
         };
         
+        protected void AddGraphicElement(BaseGraphicElement element)
+        {
+            graphicElements.Add(element);
+        }
+
         public abstract void LoadContent();
 
         public void Render(SpriteBatch spriteBatch)

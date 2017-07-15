@@ -9,7 +9,7 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void LoadContent()
         {
-            graphicElements.Add(new BackgroundImage(EContainer, "UI/MainMenu"));
+            AddGraphicElement(new BackgroundImage(EContainer, "UI/MainMenu"));
         }
     }
 }
