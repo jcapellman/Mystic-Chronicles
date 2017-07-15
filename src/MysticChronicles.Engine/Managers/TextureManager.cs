@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MysticChronicles.Managers
+namespace MysticChronicles.Engine.Managers
 {
     public class TextureManager
     {

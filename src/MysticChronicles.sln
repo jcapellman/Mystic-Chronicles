@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26621.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysticChronicles.Droid", "MysticChronicles.Droid\MysticChronicles.Droid.csproj", "{A4FC3A3D-023F-41C0-B81C-0E9EFEF027D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysticChronicles.Engine", "MysticChronicles.Engine\MysticChronicles.Engine.csproj", "{74DD17C9-6CEC-4764-8D06-B2D3D45809E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{A4FC3A3D-023F-41C0-B81C-0E9EFEF027D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4FC3A3D-023F-41C0-B81C-0E9EFEF027D3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4FC3A3D-023F-41C0-B81C-0E9EFEF027D3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{74DD17C9-6CEC-4764-8D06-B2D3D45809E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74DD17C9-6CEC-4764-8D06-B2D3D45809E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74DD17C9-6CEC-4764-8D06-B2D3D45809E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74DD17C9-6CEC-4764-8D06-B2D3D45809E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

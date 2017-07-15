@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace MysticChronicles.Objects.Element
+namespace MysticChronicles.Engine.Objects.Element
 {
     public class BaseElement
     {

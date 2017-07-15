@@ -58,14 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameStates\BaseGameState.cs" />
-    <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="MainGame.cs" />
-    <Compile Include="Managers\TextureManager.cs" />
-    <Compile Include="Objects\Common\GameStateContainer.cs" />
-    <Compile Include="Objects\Element\BaseElement.cs" />
-    <Compile Include="Objects\Element\Static\BackgroundImage.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,13 +79,16 @@
     <AndroidResource Include="Resources\Values\Styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MysticChronicles.Engine\MysticChronicles.Engine.csproj">
+      <Project>{74dd17c9-6cec-4764-8d06-b2d3d45809e0}</Project>
+      <Name>MysticChronicles.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

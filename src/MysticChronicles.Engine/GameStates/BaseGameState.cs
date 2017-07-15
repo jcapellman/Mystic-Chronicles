@@ -3,10 +3,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using MysticChronicles.Droid.Objects.Common;
-using MysticChronicles.Managers;
+using MysticChronicles.Engine.Objects.Common;
+using MysticChronicles.Engine.Managers;
 
-namespace MysticChronicles.GameStates
+namespace MysticChronicles.Engine.GameStates
 {
     public abstract class BaseGameState
     {

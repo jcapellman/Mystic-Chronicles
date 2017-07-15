@@ -1,6 +1,6 @@
-﻿using MysticChronicles.Managers;
+﻿using MysticChronicles.Engine.Managers;
 
-namespace MysticChronicles.Droid.Objects.Common
+namespace MysticChronicles.Engine.Objects.Common
 {
     public class GameStateContainer
     {

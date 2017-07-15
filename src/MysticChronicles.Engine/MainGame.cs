@@ -2,12 +2,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using MysticChronicles.Droid.Objects.Common;
+using MysticChronicles.Engine.Objects.Common;
 
-using MysticChronicles.GameStates;
-using MysticChronicles.Managers;
+using MysticChronicles.Engine.GameStates;
+using MysticChronicles.Engine.Managers;
 
-namespace MysticChronicles
+namespace MysticChronicles.Engine
 {
     public class MainGame : Game
     {

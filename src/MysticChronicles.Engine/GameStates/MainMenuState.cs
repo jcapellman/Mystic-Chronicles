@@ -1,6 +1,6 @@
-﻿using MysticChronicles.Droid.Objects.Common;
+﻿using MysticChronicles.Engine.Objects.Common;
 
-namespace MysticChronicles.GameStates
+namespace MysticChronicles.Engine.GameStates
 {
     public class MainMenuState : BaseGameState
     {

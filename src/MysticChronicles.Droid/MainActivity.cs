@@ -3,6 +3,8 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 
+using MysticChronicles.Engine;
+
 namespace MysticChronicles
 {
     [Activity(Label = "Mystic Chronicles"
