@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Managers;
@@ -13,6 +15,24 @@ namespace MysticChronicles.Engine.GameStates
         protected TextureManager textureManager;
         protected int width, height;
         protected List<BaseGraphicElement> graphicElements;
+
+        #region State Change Event
+        public event EventHandler<BaseGameState> OnRequestStateChange;
+
+        public void RequestStateChange(BaseGameState gameState)
+        {
+            var handler = OnRequestStateChange;
+
+            handler?.Invoke(null, gameState);
+        }
+        #endregion
+
+        protected GameStateContainer GSContainer => new GameStateContainer
+        {
+                Window_Height = height,
+                Window_Width = width,
+                TManager = textureManager
+        };
 
         protected BaseGameState(GameStateContainer container)
         {
@@ -35,6 +55,8 @@ namespace MysticChronicles.Engine.GameStates
             graphicElements.Add(element);
         }
 
+        public abstract void HandleInput(GamePadState gamePadState);
+        
         public abstract void LoadContent();
 
         public void Render(SpriteBatch spriteBatch)
