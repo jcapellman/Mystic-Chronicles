@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System.Linq;
+
+using Microsoft.Xna.Framework.Input;
 
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Objects.Element.Static;
@@ -9,13 +11,13 @@ namespace MysticChronicles.Engine.GameStates
     {
         public MainMenuState(GameStateContainer container) : base(container) { }
 
-        public override void HandleInput(GamePadState gamePadState)
+        public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState)
         {
-            if (gamePadState.Buttons.A != ButtonState.Pressed)
+            if (!keyboardState.GetPressedKeys().Any())
             {
                 return;
             }
-
+            
             RequestStateChange(new InBattleState(GSContainer));
         }
 

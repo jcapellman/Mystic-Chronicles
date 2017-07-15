@@ -9,7 +9,7 @@ namespace MysticChronicles.Engine.GameStates
     {
         public InBattleState(GameStateContainer container) : base(container) { }
 
-        public override void HandleInput(GamePadState gamePadState)
+        public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState)
         {
             throw new System.NotImplementedException();
         }

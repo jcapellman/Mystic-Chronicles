@@ -58,7 +58,7 @@ namespace MysticChronicles.Engine
         
         protected override void Update(GameTime gameTime)
         {
-            currentGameState.HandleInput(GamePad.GetState(PlayerIndex.One));
+            currentGameState.HandleInput(GamePad.GetState(PlayerIndex.One), Keyboard.GetState());
             
             base.Update(gameTime);
         }

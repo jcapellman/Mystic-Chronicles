@@ -55,7 +55,7 @@ namespace MysticChronicles.Engine.GameStates
             graphicElements.Add(element);
         }
 
-        public abstract void HandleInput(GamePadState gamePadState);
+        public abstract void HandleInput(GamePadState gamePadState, KeyboardState keyboardState);
         
         public abstract void LoadContent();
 
