@@ -14,7 +14,7 @@ namespace MysticChronicles.Engine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
-        private MainMenuState stateMainMenu;
+        private BaseGameState currentGameState;
 
         private GameStateContainer gsContainer;
 
@@ -29,12 +29,6 @@ namespace MysticChronicles.Engine
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             gsContainer = new GameStateContainer
@@ -46,53 +40,34 @@ namespace MysticChronicles.Engine
 
             base.Initialize();
         }
-
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
+        
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            stateMainMenu = new MainMenuState(gsContainer);
+            currentGameState = new MainMenuState(gsContainer);
 
-            stateMainMenu.LoadContent();
+            currentGameState.OnRequestStateChange += CurrentGameState_OnRequestStateChange;
+            currentGameState.LoadContent();
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
+        private void CurrentGameState_OnRequestStateChange(object sender, BaseGameState e)
         {
-            // TODO: Unload any non ContentManager content here
+            currentGameState = e;
         }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                Exit();
-
-            // TODO: Add your update logic here
-
+            currentGameState.HandleInput(GamePad.GetState(PlayerIndex.One));
+            
             base.Update(gameTime);
         }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
             
-            stateMainMenu.Render(spriteBatch);
+            currentGameState.Render(spriteBatch);
 
             base.Draw(gameTime);
         }
