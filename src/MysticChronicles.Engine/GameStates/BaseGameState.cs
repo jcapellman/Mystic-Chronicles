@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Managers;
+using MysticChronicles.Engine.Objects.Element;
 
 namespace MysticChronicles.Engine.GameStates
 {
@@ -12,26 +13,33 @@ namespace MysticChronicles.Engine.GameStates
     {
         protected TextureManager textureManager;
         protected int width, height;
-        protected List<Texture2D> textures;
+        protected List<BaseGraphicElement> graphicElements;
 
         protected BaseGameState(GameStateContainer container)
         {
             textureManager = container.TManager;
-            textures = new List<Texture2D>();
+            graphicElements = new List<BaseGraphicElement>();
 
             width = container.Window_Width;
             height = container.Window_Height;
         }
 
+        public ElementContainer EContainer => new ElementContainer
+        {
+            Window_Width = width,
+            Window_Height = height,
+            TextureManager = textureManager
+        };
+        
         public abstract void LoadContent();
 
         public void Render(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
-            foreach (var texture in textures)
+            foreach (var element in graphicElements)
             {
-                spriteBatch.Draw(texture, new Rectangle(0, 0, width, height), Color.White);
+                element.Render(spriteBatch);
             }
 
             spriteBatch.End();

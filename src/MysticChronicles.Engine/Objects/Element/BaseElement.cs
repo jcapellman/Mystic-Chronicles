@@ -4,6 +4,5 @@ namespace MysticChronicles.Engine.Objects.Element
 {
     public class BaseElement
     {
-        protected Texture TextureElement;
     }
 }
