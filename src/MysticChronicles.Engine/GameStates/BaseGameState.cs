@@ -11,6 +11,7 @@ using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Managers;
 using MysticChronicles.Engine.Objects.Element;
 using MysticChronicles.Engine.Objects.Element.Static;
+using MysticChronicles.Engine.Enums;
 
 namespace MysticChronicles.Engine.GameStates
 {
@@ -67,7 +68,22 @@ namespace MysticChronicles.Engine.GameStates
             GraphicElements.Add(element);
         }
 
-        public void AddText(string text, Color color, int xPosition, int yPosition, int scale)
+        public void AddText(string text, Color color, int scale, TextAlignment textAlignment)
+        {
+            var position = Vector2.One;
+
+            switch (textAlignment)
+            {
+                case TextAlignment.HORIZONTALLY_AND_VERTICALLY_CENTERED:
+                    position.X = (Width - _mainFont.MeasureString(text).X) / 2;
+                    position.Y = (Height - _mainFont.MeasureString(text).Y) / 2;
+                    break;
+            }
+
+            AddText(text, color, position.X, position.Y, scale);
+        }
+
+        public void AddText(string text, Color color, float xPosition, float yPosition, int scale)
         {
             TextElements.Add(new StaticText(_mainFont, text, color, scale, xPosition, yPosition));
         }
