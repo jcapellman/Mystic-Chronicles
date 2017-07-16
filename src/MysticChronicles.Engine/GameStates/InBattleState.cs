@@ -19,6 +19,7 @@ namespace MysticChronicles.Engine.GameStates
         {
             AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Forest"));
             AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
+            AddGraphicElement(new PartyMember(EContainer, "characters/knight"));
         }
     }
 }
