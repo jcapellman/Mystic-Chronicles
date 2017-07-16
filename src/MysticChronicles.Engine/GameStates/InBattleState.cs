@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Objects.Common;
+using MysticChronicles.Engine.Objects.Element.Character;
 using MysticChronicles.Engine.Objects.Element.Static;
 
 namespace MysticChronicles.Engine.GameStates
