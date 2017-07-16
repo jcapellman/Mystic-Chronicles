@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-namespace MysticChronicles.Engine.Objects.Element
+﻿namespace MysticChronicles.Engine.Objects.Element
 {
     public class BaseElement
     {
+        public bool IsVisible { get; set; }
     }
 }
