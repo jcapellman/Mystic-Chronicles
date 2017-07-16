@@ -12,7 +12,7 @@ namespace MysticChronicles.Engine.Objects.Element.Static
             spriteBatch.Draw(TextureElement, new Rectangle(0, 0, Window_Width, Window_Height), Color.White);
         }
 
-        public BackgroundImage(ElementContainer elementContainer, string textureName) : base(elementContainer, textureName)
+        public BackgroundImage(ElementContainer elementContainer, string textureName, bool isVisible = true) : base(elementContainer, textureName, isVisible)
         {
         }
     }

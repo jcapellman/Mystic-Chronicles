@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -77,7 +79,7 @@ namespace MysticChronicles.Engine.GameStates
         {
             spriteBatch.Begin();
 
-            foreach (var element in GraphicElements)
+            foreach (var element in GraphicElements.Where(a => a.IsVisible))
             {
                 element.Render(spriteBatch);
             }
