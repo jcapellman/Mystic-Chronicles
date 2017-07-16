@@ -18,21 +18,27 @@ namespace MysticChronicles.Engine
 
         private GameStateContainer _gsContainer;
 
+        private GraphicsDeviceManager _graphics;
+
         public MainGame()
         {
-            var graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this)
+            {
+#if DEBUG
+                IsFullScreen = false,
+#else
+                IsFullScreen = true,
+#endif
+                PreferredBackBufferWidth = Constants.RESOLUTION_WIDTH,
+                PreferredBackBufferHeight = Constants.RESOLUTION_HEIGHT,
+                GraphicsProfile = GraphicsProfile.HiDef,
+                PreferMultiSampling = true,
+                SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight
+            };
+
+            _graphics.ApplyChanges();
 
             Content.RootDirectory = "Content";
-
-#if DEBUG
-            graphics.IsFullScreen = false;
-#else
-            graphics.IsFullScreen = true;
-#endif
-
-            graphics.PreferredBackBufferWidth = Constants.RESOLUTION_WIDTH;
-            graphics.PreferredBackBufferHeight = Constants.RESOLUTION_HEIGHT;
-            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
         protected override void Initialize()
