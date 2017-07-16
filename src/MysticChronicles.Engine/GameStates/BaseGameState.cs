@@ -84,7 +84,7 @@ namespace MysticChronicles.Engine.GameStates
                 element.Render(spriteBatch);
             }
 
-            foreach (var textElement in TextElements)
+            foreach (var textElement in TextElements.Where(a => a.IsVisible))
             {
                 textElement.Render(spriteBatch);
             }
