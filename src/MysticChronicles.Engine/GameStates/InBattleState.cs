@@ -19,7 +19,7 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void LoadContent()
         {
-            AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Forest"));
+            AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
             AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
 
             AddGraphicElement(new PartyMember(EContainer, "characters/knight", 1));
