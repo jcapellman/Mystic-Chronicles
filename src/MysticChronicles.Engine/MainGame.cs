@@ -23,8 +23,8 @@ namespace MysticChronicles.Engine
             var graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
-
-            graphics.IsFullScreen = true;
+            
+            graphics.IsFullScreen = false;
             graphics.PreferredBackBufferWidth = Constants.RESOLUTION_WIDTH;
             graphics.PreferredBackBufferHeight = Constants.RESOLUTION_HEIGHT;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
@@ -32,6 +32,8 @@ namespace MysticChronicles.Engine
 
         protected override void Initialize()
         {
+            Window.Title = Common.Constants.GAME_NAME;
+
             _gsContainer = new GameStateContainer
             {
                 Window_Height = Window.ClientBounds.Height,
