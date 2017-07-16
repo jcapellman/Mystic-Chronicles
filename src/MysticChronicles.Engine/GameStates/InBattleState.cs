@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Objects.Element.Static;
@@ -9,7 +10,7 @@ namespace MysticChronicles.Engine.GameStates
     {
         public InBattleState(GameStateContainer container) : base(container) { }
 
-        public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState)
+        public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection)
         {
             // TODO: Handle Input
         }

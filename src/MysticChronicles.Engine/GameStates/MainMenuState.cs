@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Objects.Element.Static;
@@ -11,9 +12,9 @@ namespace MysticChronicles.Engine.GameStates
     {
         public MainMenuState(GameStateContainer container) : base(container) { }
 
-        public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState)
+        public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection tocuCollection)
         {
-            if (!keyboardState.GetPressedKeys().Any())
+            if (!keyboardState.GetPressedKeys().Any() && tocuCollection.All(a => a.State != TouchLocationState.Pressed))
             {
                 return;
             }

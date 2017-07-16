@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using Microsoft.Xna.Framework.Input.Touch;
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Managers;
 using MysticChronicles.Engine.Objects.Element;
@@ -55,7 +55,7 @@ namespace MysticChronicles.Engine.GameStates
             graphicElements.Add(element);
         }
 
-        public abstract void HandleInput(GamePadState gamePadState, KeyboardState keyboardState);
+        public abstract void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection);
         
         public abstract void LoadContent();
 

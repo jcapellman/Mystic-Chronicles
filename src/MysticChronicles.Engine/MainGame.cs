@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using Microsoft.Xna.Framework.Input.Touch;
 using MysticChronicles.Engine.Objects.Common;
 
 using MysticChronicles.Engine.GameStates;
@@ -60,7 +60,7 @@ namespace MysticChronicles.Engine
         
         protected override void Update(GameTime gameTime)
         {
-            _currentGameState.HandleInput(GamePad.GetState(PlayerIndex.One), Keyboard.GetState());
+            _currentGameState.HandleInput(GamePad.GetState(PlayerIndex.One), Keyboard.GetState(), TouchPanel.GetState());
             
             base.Update(gameTime);
         }
