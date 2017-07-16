@@ -23,8 +23,13 @@ namespace MysticChronicles.Engine
             var graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
-            
+
+#if DEBUG
             graphics.IsFullScreen = false;
+#else
+            graphics.IsFullScreen = true;
+#endif
+
             graphics.PreferredBackBufferWidth = Constants.RESOLUTION_WIDTH;
             graphics.PreferredBackBufferHeight = Constants.RESOLUTION_HEIGHT;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
