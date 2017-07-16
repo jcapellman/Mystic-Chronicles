@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Managers;
 using MysticChronicles.Engine.Objects.Element;
+using MysticChronicles.Engine.Objects.Element.Static;
 
 namespace MysticChronicles.Engine.GameStates
 {
     public abstract class BaseGameState
     {
         protected TextureManager textureManager;
-        protected int width, height;
-        protected List<BaseGraphicElement> graphicElements;
+        protected int Width, Height;
+        protected List<BaseGraphicElement> GraphicElements;
+        protected List<StaticText> TextElements;
+
+        private SpriteFont _mainFont;
 
         #region State Change Event
         public event EventHandler<BaseGameState> OnRequestStateChange;
@@ -27,32 +32,41 @@ namespace MysticChronicles.Engine.GameStates
         }
         #endregion
 
-        protected GameStateContainer GSContainer => new GameStateContainer
+        protected GameStateContainer GsContainer => new GameStateContainer
         {
-                Window_Height = height,
-                Window_Width = width,
+                Window_Height = Height,
+                Window_Width = Width,
                 TManager = textureManager
         };
 
         protected BaseGameState(GameStateContainer container)
         {
             textureManager = container.TManager;
-            graphicElements = new List<BaseGraphicElement>();
 
-            width = container.Window_Width;
-            height = container.Window_Height;
+            GraphicElements = new List<BaseGraphicElement>();
+            TextElements = new List<StaticText>();
+
+            _mainFont = container.MainFont;
+
+            Width = container.Window_Width;
+            Height = container.Window_Height;
         }
 
         public ElementContainer EContainer => new ElementContainer
         {
-            Window_Width = width,
-            Window_Height = height,
+            Window_Width = Width,
+            Window_Height = Height,
             TextureManager = textureManager
         };
         
         protected void AddGraphicElement(BaseGraphicElement element)
         {
-            graphicElements.Add(element);
+            GraphicElements.Add(element);
+        }
+
+        public void AddText(string text, Color color, int xPosition, int yPosition)
+        {
+            TextElements.Add(new StaticText(_mainFont, text, color, xPosition, yPosition));
         }
 
         public abstract void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection);
@@ -63,9 +77,14 @@ namespace MysticChronicles.Engine.GameStates
         {
             spriteBatch.Begin();
 
-            foreach (var element in graphicElements)
+            foreach (var element in GraphicElements)
             {
                 element.Render(spriteBatch);
+            }
+
+            foreach (var textElement in TextElements)
+            {
+                textElement.Render(spriteBatch);
             }
 
             spriteBatch.End();

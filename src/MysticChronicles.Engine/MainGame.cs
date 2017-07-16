@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Common;
 using MysticChronicles.Engine.Objects.Common;
-
 using MysticChronicles.Engine.GameStates;
 using MysticChronicles.Engine.Managers;
 
@@ -37,7 +36,8 @@ namespace MysticChronicles.Engine
             {
                 Window_Height = Window.ClientBounds.Height,
                 Window_Width = Window.ClientBounds.Width,
-                TManager = new TextureManager(Content)
+                TManager = new TextureManager(Content),
+                MainFont = Content.Load<SpriteFont>("Main")
             };
 
             base.Initialize();

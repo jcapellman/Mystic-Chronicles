@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
@@ -19,12 +20,14 @@ namespace MysticChronicles.Engine.GameStates
                 return;
             }
             
-            RequestStateChange(new InBattleState(GSContainer));
+            RequestStateChange(new InBattleState(GsContainer));
         }
 
         public override void LoadContent()
         {
             AddGraphicElement(new BackgroundImage(EContainer, "UI/MainMenu"));
+
+            AddText("Testing", Color.White, 100, 100);
         }
     }
 }
