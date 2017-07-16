@@ -22,23 +22,25 @@ namespace MysticChronicles.Engine
 
         public MainGame()
         {
-            _graphics = new GraphicsDeviceManager(this)
-            {
-#if DEBUG
-                IsFullScreen = false,
-#else
-                IsFullScreen = true,
-#endif
-                PreferredBackBufferWidth = Constants.RESOLUTION_WIDTH,
-                PreferredBackBufferHeight = Constants.RESOLUTION_HEIGHT,
-                GraphicsProfile = GraphicsProfile.HiDef,
-                PreferMultiSampling = true,
-                SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight
-            };
+            _graphics = new GraphicsDeviceManager(this);
 
-            _graphics.ApplyChanges();
-
+            _graphics.PreparingDeviceSettings += _graphics_PreparingDeviceSettings;
+            
             Content.RootDirectory = "Content";
+        }
+
+        private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+#if DEBUG
+            _graphics.IsFullScreen = false;
+#else
+            _graphics.IsFullScreen = true;
+#endif
+            _graphics.PreferredBackBufferWidth = Constants.RESOLUTION_WIDTH;
+            _graphics.PreferredBackBufferHeight = Constants.RESOLUTION_HEIGHT;
+            _graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            _graphics.PreferMultiSampling = true;
+            _graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;            
         }
 
         protected override void Initialize()
@@ -52,7 +54,7 @@ namespace MysticChronicles.Engine
                 TManager = new TextureManager(Content),
                 MainFont = Content.Load<SpriteFont>("Main")
             };
-
+            
             base.Initialize();
         }
         
