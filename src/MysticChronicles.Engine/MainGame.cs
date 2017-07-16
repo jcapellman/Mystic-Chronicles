@@ -11,27 +11,27 @@ namespace MysticChronicles.Engine
 {
     public class MainGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private SpriteBatch _spriteBatch;
         
-        private BaseGameState currentGameState;
+        private BaseGameState _currentGameState;
 
-        private GameStateContainer gsContainer;
+        private GameStateContainer _gsContainer;
 
         public MainGame()
         {
-            graphics = new GraphicsDeviceManager(this);
+            var graphics = new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
 
             graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 480;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
         protected override void Initialize()
         {
-            gsContainer = new GameStateContainer
+            _gsContainer = new GameStateContainer
             {
                 Window_Height = Window.ClientBounds.Height,
                 Window_Width = Window.ClientBounds.Width,
@@ -43,22 +43,24 @@ namespace MysticChronicles.Engine
         
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            currentGameState = new MainMenuState(gsContainer);
+            _currentGameState = new MainMenuState(_gsContainer);
 
-            currentGameState.OnRequestStateChange += CurrentGameState_OnRequestStateChange;
-            currentGameState.LoadContent();
+            _currentGameState.OnRequestStateChange += CurrentGameState_OnRequestStateChange;
+            _currentGameState.LoadContent();
         }
 
         private void CurrentGameState_OnRequestStateChange(object sender, BaseGameState e)
         {
-            currentGameState = e;
+            _currentGameState = e;
+
+            _currentGameState.LoadContent();
         }
         
         protected override void Update(GameTime gameTime)
         {
-            currentGameState.HandleInput(GamePad.GetState(PlayerIndex.One), Keyboard.GetState());
+            _currentGameState.HandleInput(GamePad.GetState(PlayerIndex.One), Keyboard.GetState());
             
             base.Update(gameTime);
         }
@@ -67,7 +69,7 @@ namespace MysticChronicles.Engine
         {
             GraphicsDevice.Clear(Color.Black);
             
-            currentGameState.Render(spriteBatch);
+            _currentGameState.Render(_spriteBatch);
 
             base.Draw(gameTime);
         }
