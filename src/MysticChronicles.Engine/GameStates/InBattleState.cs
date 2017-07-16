@@ -11,12 +11,13 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState)
         {
-            throw new System.NotImplementedException();
+            // TODO: Handle Input
         }
 
         public override void LoadContent()
         {
-            AddGraphicElement(new BackgroundImage(EContainer, "Battle Backgrounds/Forest"));
+            AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Forest"));
+            AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
         }
     }
 }
