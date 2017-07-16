@@ -27,7 +27,7 @@ namespace MysticChronicles.Engine.GameStates
         {
             AddGraphicElement(new BackgroundImage(EContainer, "UI/MainMenu"));
 
-            AddText("Testing", Color.White, 100, 100);
+            AddText("Press any key to continue", Color.White, 100, 100, 2);
         }
     }
 }

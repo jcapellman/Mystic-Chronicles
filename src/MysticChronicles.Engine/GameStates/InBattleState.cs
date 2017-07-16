@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Objects.Common;
@@ -21,6 +22,8 @@ namespace MysticChronicles.Engine.GameStates
             AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Forest"));
             AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
             AddGraphicElement(new PartyMember(EContainer, "characters/knight"));
+
+            AddText("Jarred", Color.White, 200, 200, 1);
         }
     }
 }

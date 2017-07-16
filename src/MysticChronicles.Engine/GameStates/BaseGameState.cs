@@ -66,9 +66,9 @@ namespace MysticChronicles.Engine.GameStates
             GraphicElements.Add(element);
         }
 
-        public void AddText(string text, Color color, int xPosition, int yPosition)
+        public void AddText(string text, Color color, int xPosition, int yPosition, int scale)
         {
-            TextElements.Add(new StaticText(_mainFont, text, color, xPosition, yPosition));
+            TextElements.Add(new StaticText(_mainFont, text, color, scale, xPosition, yPosition));
         }
 
         public abstract void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection);
