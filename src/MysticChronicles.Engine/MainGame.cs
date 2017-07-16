@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+
+using MysticChronicles.Engine.Common;
 using MysticChronicles.Engine.Objects.Common;
 
 using MysticChronicles.Engine.GameStates;
@@ -24,8 +26,8 @@ namespace MysticChronicles.Engine
             Content.RootDirectory = "Content";
 
             graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = Constants.RESOLUTION_WIDTH;
+            graphics.PreferredBackBufferHeight = Constants.RESOLUTION_HEIGHT;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
