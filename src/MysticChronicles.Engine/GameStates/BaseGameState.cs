@@ -38,7 +38,8 @@ namespace MysticChronicles.Engine.GameStates
         {
                 Window_Height = Height,
                 Window_Width = Width,
-                TManager = textureManager
+                TManager = textureManager,
+                MainFont = _mainFont
         };
 
         protected BaseGameState(GameStateContainer container)
