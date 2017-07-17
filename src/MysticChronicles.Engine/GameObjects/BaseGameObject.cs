@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,7 +21,7 @@ namespace MysticChronicles.Engine.GameObjects
             _container = container;
         }
 
-        public abstract (List<BaseGraphicElement> graphicElements, List<StaticText> textElements) LoadContent();
+        public abstract Tuple<List<BaseGraphicElement>, List<StaticText>> LoadContent();
 
         public StaticText AddText(SpriteFont font, string text, Color color, int scale, TextAlignment textAlignment)
         {

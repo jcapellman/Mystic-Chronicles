@@ -28,8 +28,8 @@ namespace MysticChronicles.Engine.GameStates
 
             var content = mObject.LoadContent();
 
-            AddGraphicElementRange(content.graphicElements);
-            AddTextElementRange(content.textElements);
+            AddGraphicElementRange(content.Item1);
+            AddTextElementRange(content.Item2);
         }
     }
 }

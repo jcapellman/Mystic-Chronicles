@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Objects.Element;
@@ -23,7 +24,7 @@ namespace MysticChronicles.Engine.GameObjects.Characters
             _className = className;
         }
         
-        public override (List<BaseGraphicElement> graphicElements, List<StaticText> textElements) LoadContent()
+        public override Tuple<List<BaseGraphicElement>, List<StaticText>> LoadContent()
         {
             var graphicElements = new List<BaseGraphicElement> {new PartyMember(_container, $"characters/{_className}", _partyIndex)};
 
@@ -33,7 +34,7 @@ namespace MysticChronicles.Engine.GameObjects.Characters
                 AddText(_container.Font, $"HP {_currentHP}/{_maxHP}", Color.White, 1000, 510 + (_partyIndex * 50), 1)
             };
 
-            return (graphicElements, textElements);
+            return new Tuple<List<BaseGraphicElement>, List<StaticText>>(graphicElements, textElements);
         }
     }
 }

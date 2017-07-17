@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
@@ -10,7 +11,7 @@ namespace MysticChronicles.Engine.GameObjects.GUI
 {
     public class MenuObject : BaseGameObject
     {
-        public override (List<BaseGraphicElement> graphicElements, List<StaticText> textElements) LoadContent()
+        public override Tuple<List<BaseGraphicElement>, List<StaticText>> LoadContent()
         {
             var graphicElements = new List<BaseGraphicElement> { new BackgroundImage(_container, "UI/MainMenu") };
 
@@ -19,7 +20,7 @@ namespace MysticChronicles.Engine.GameObjects.GUI
                 AddText(_container.Font, "Press any key to continue", Color.White, 1, Enums.TextAlignment.HORIZONTALLY_AND_VERTICALLY_CENTERED)
             };
 
-            return (graphicElements, textElements);
+            return new Tuple<List<BaseGraphicElement>, List<StaticText>>(graphicElements, textElements);
         }
 
         public MenuObject(ElementContainer container) : base(container)

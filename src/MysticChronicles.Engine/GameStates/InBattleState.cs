@@ -34,9 +34,9 @@ namespace MysticChronicles.Engine.GameStates
             {
                 var partyMemberContent = partyMember.LoadContent();
 
-                AddGraphicElementRange(partyMemberContent.graphicElements);
+                AddGraphicElementRange(partyMemberContent.Item1);
 
-                AddTextElementRange(partyMemberContent.textElements);
+                AddTextElementRange(partyMemberContent.Item2);
             }
             
             AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
