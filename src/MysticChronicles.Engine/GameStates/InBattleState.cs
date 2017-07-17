@@ -17,9 +17,9 @@ namespace MysticChronicles.Engine.GameStates
         {
             _partyMembers = new List<PartyMemberObject>
             {
-                new PartyMemberObject("Solozar", "Soldier", 1),
-                new PartyMemberObject("Tainer", "Tank", 2),
-                new PartyMemberObject("Katarn", "Sniper", 3)
+                new PartyMemberObject("Solozar", "Soldier", 1, EContainer),
+                new PartyMemberObject("Tainer", "Tank", 2, EContainer),
+                new PartyMemberObject("Katarn", "Sniper", 3, EContainer)
             };
         }
 
@@ -32,7 +32,7 @@ namespace MysticChronicles.Engine.GameStates
         {
             foreach (var partyMember in _partyMembers)
             {
-                var partyMemberContent = partyMember.LoadContent(EContainer);
+                var partyMemberContent = partyMember.LoadContent();
 
                 AddGraphicElementRange(partyMemberContent.graphicElements);
 
