@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-
-using MysticChronicles.Engine.Objects.Common;
-using MysticChronicles.Engine.Objects.Element;
-using MysticChronicles.Engine.Objects.Element.Static;
+﻿using MysticChronicles.Engine.Objects.Common;
 
 namespace MysticChronicles.Engine.GameObjects.Characters
 {
@@ -10,6 +6,6 @@ namespace MysticChronicles.Engine.GameObjects.Characters
     {
         protected string Name { get; set; }
 
-        public abstract (List<BaseGraphicElement> graphicElements, List<StaticText> textElements) LoadContent(ElementContainer container);
+        protected BaseCharacterObject(ElementContainer container) : base(container) { }
     }
 }
