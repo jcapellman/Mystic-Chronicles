@@ -26,7 +26,9 @@ namespace MysticChronicles.Engine.GameStates
             AddGraphicElement(new PartyMember(EContainer, "characters/Tank", 2));
             AddGraphicElement(new PartyMember(EContainer, "characters/Sniper", 3));
 
-            AddText("Jarred", Color.White, 200, 200, 1);
+            AddText("Solozar", Color.White, 525, 510, 1);
+            AddText("Tainer", Color.White, 525, 560, 1);
+            AddText("Katarn", Color.White, 525, 610, 1);
         }
     }
 }
