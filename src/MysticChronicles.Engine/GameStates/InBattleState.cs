@@ -29,6 +29,10 @@ namespace MysticChronicles.Engine.GameStates
             AddText("Solozar", Color.White, 525, 510, 1);
             AddText("Tainer", Color.White, 525, 560, 1);
             AddText("Katarn", Color.White, 525, 610, 1);
+
+            AddText("HP 100/200", Color.White, 1000, 510, 1);
+            AddText("HP 140/140", Color.White, 1000, 560, 1);
+            AddText("HP 120/290", Color.White, 1000, 610, 1);
         }
     }
 }
