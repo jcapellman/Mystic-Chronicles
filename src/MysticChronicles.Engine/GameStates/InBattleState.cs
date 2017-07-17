@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
@@ -36,18 +35,12 @@ namespace MysticChronicles.Engine.GameStates
                 var partyMemberContent = partyMember.LoadContent(EContainer);
 
                 AddGraphicElementRange(partyMemberContent.graphicElements);
+
+                AddTextElementRange(partyMemberContent.textElements);
             }
             
             AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
             AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
-            
-            AddText("Solozar", Color.White, 525, 510, 1);
-            AddText("Tainer", Color.White, 525, 560, 1);
-            AddText("Katarn", Color.White, 525, 610, 1);
-
-            AddText("HP 100/200", Color.White, 1000, 510, 1);
-            AddText("HP 140/140", Color.White, 1000, 560, 1);
-            AddText("HP 120/290", Color.White, 1000, 610, 1);
         }
     }
 }
