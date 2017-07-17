@@ -1,16 +1,28 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
+using MysticChronicles.Engine.GameObjects.Characters;
 using MysticChronicles.Engine.Objects.Common;
-using MysticChronicles.Engine.Objects.Element.Character;
 using MysticChronicles.Engine.Objects.Element.Static;
 
 namespace MysticChronicles.Engine.GameStates
 {
     public class InBattleState : BaseGameState
     {
-        public InBattleState(GameStateContainer container) : base(container) { }
+        private readonly List<PartyMemberObject> _partyMembers;
+        
+        public InBattleState(GameStateContainer container) : base(container)
+        {
+            _partyMembers = new List<PartyMemberObject>
+            {
+                new PartyMemberObject("Solozar", "Soldier", 1),
+                new PartyMemberObject("Tainer", "Tank", 2),
+                new PartyMemberObject("Katarn", "Sniper", 3)
+            };
+        }
 
         public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection)
         {
@@ -19,13 +31,16 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void LoadContent()
         {
+            foreach (var partyMember in _partyMembers)
+            {
+                var partyMemberContent = partyMember.LoadContent(EContainer);
+
+                AddGraphicElementRange(partyMemberContent.graphicElements);
+            }
+            
             AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
             AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
-
-            AddGraphicElement(new PartyMember(EContainer, "characters/Soldier", 1));
-            AddGraphicElement(new PartyMember(EContainer, "characters/Tank", 2));
-            AddGraphicElement(new PartyMember(EContainer, "characters/Sniper", 3));
-
+            
             AddText("Solozar", Color.White, 525, 510, 1);
             AddText("Tainer", Color.White, 525, 560, 1);
             AddText("Katarn", Color.White, 525, 610, 1);

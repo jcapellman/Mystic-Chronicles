@@ -67,6 +67,11 @@ namespace MysticChronicles.Engine.GameStates
         {
             GraphicElements.Add(element);
         }
+        
+        protected void AddGraphicElementRange(List<BaseGraphicElement> elements)
+        {
+            GraphicElements.AddRange(elements);
+        }
 
         public void AddText(string text, Color color, int scale, TextAlignment textAlignment)
         {
