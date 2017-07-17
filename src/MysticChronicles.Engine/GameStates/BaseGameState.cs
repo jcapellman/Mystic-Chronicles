@@ -73,24 +73,14 @@ namespace MysticChronicles.Engine.GameStates
             GraphicElements.AddRange(elements);
         }
 
-        public void AddText(string text, Color color, int scale, TextAlignment textAlignment)
+        protected void AddTextElement(StaticText textElement)
         {
-            var position = Vector2.One;
-
-            switch (textAlignment)
-            {
-                case TextAlignment.HORIZONTALLY_AND_VERTICALLY_CENTERED:
-                    position.X = (Width - _mainFont.MeasureString(text).X) / 2;
-                    position.Y = (Height - _mainFont.MeasureString(text).Y) / 2;
-                    break;
-            }
-
-            AddText(text, color, position.X, position.Y, scale);
+            TextElements.Add(textElement);
         }
 
-        public void AddText(string text, Color color, float xPosition, float yPosition, int scale)
+        protected void AddTextElementRange(List<StaticText> textElements)
         {
-            TextElements.Add(new StaticText(_mainFont, text, color, scale, xPosition, yPosition));
+            TextElements.AddRange(textElements);
         }
 
         public abstract void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection);
