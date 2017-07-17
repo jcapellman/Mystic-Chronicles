@@ -7,9 +7,9 @@ namespace MysticChronicles.Engine.Objects.Element.Character
 {
     public class PartyMember : BaseGraphicElement
     {
-        private const int _partyYOffset = 125;
+        private const int PartyYOffset = 175;
 
-        private int _partySpot;
+        private readonly int _partySpot;
 
         public PartyMember(ElementContainer elementContainer, string textureName, int partySpot, bool isVisible = true) : base(elementContainer, textureName, isVisible)
         {
@@ -19,7 +19,7 @@ namespace MysticChronicles.Engine.Objects.Element.Character
         public override void Render(SpriteBatch spriteBatch)
         {
             var originX = Window_Width - TextureElement.Width;
-            var originY = Window_Height - (_partySpot * TextureElement.Height) - _partyYOffset;
+            var originY = Window_Height - (_partySpot * TextureElement.Height) - PartyYOffset;
 
             spriteBatch.Draw(TextureElement, new Rectangle(originX, originY, TextureElement.Width, TextureElement.Height), Color.White);
         }
