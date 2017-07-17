@@ -22,9 +22,9 @@ namespace MysticChronicles.Engine.GameStates
             AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
             AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
 
-            AddGraphicElement(new PartyMember(EContainer, "characters/knight", 1));
-            AddGraphicElement(new PartyMember(EContainer, "characters/knight", 2));
-            AddGraphicElement(new PartyMember(EContainer, "characters/knight", 3));
+            AddGraphicElement(new PartyMember(EContainer, "characters/Soldier", 1));
+            AddGraphicElement(new PartyMember(EContainer, "characters/Tank", 2));
+            AddGraphicElement(new PartyMember(EContainer, "characters/Sniper", 3));
 
             AddText("Jarred", Color.White, 200, 200, 1);
         }
