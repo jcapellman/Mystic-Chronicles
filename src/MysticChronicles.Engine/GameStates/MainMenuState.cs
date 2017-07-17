@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
+using MysticChronicles.Engine.GameObjects.GUI;
 using MysticChronicles.Engine.Objects.Common;
-using MysticChronicles.Engine.Objects.Element.Static;
 
 namespace MysticChronicles.Engine.GameStates
 {
@@ -25,9 +24,12 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void LoadContent()
         {
-            AddGraphicElement(new BackgroundImage(EContainer, "UI/MainMenu"));
+            var mObject = new MenuObject(EContainer);
 
-            AddText("Press any key to continue", Color.White, 1, Enums.TextAlignment.HORIZONTALLY_AND_VERTICALLY_CENTERED);
+            var content = mObject.LoadContent();
+
+            AddGraphicElementRange(content.graphicElements);
+            AddTextElementRange(content.textElements);
         }
     }
 }
