@@ -22,7 +22,7 @@ namespace MysticChronicles.Engine.GameStates
         protected List<BaseGraphicElement> GraphicElements;
         protected List<StaticText> TextElements;
 
-        private SpriteFont _mainFont;
+        private readonly SpriteFont _mainFont;
 
         #region State Change Event
         public event EventHandler<BaseGameState> OnRequestStateChange;
@@ -60,7 +60,8 @@ namespace MysticChronicles.Engine.GameStates
         {
             Window_Width = Width,
             Window_Height = Height,
-            TextureManager = textureManager
+            TextureManager = textureManager,
+            Font = _mainFont
         };
         
         protected void AddGraphicElement(BaseGraphicElement element)
