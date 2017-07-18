@@ -26,12 +26,15 @@ namespace MysticChronicles.Engine.GameObjects.Characters
         
         public override Tuple<List<BaseGraphicElement>, List<StaticText>> LoadContent()
         {
-            var graphicElements = new List<BaseGraphicElement> {new PartyMember(_container, $"characters/{_className}", _partyIndex)};
+            var graphicElements = new List<BaseGraphicElement>
+            {
+                new PartyMember(_container, $"characters/{_className}", _partyIndex)
+            };
 
             var textElements = new List<StaticText>
             {
-                AddText(_container.Font, Name, Color.White, 525, 510 + (_partyIndex * 50), 1),
-                AddText(_container.Font, $"HP {_currentHP}/{_maxHP}", Color.White, 1000, 510 + (_partyIndex * 50), 1)
+                AddText(_container.Font, Name, Color.White, 525, 460 + (_partyIndex * 50), 1),
+                AddText(_container.Font, $"HP {_currentHP}/{_maxHP}", Color.White, 1000, 460 + (_partyIndex * 50), 1)
             };
 
             return new Tuple<List<BaseGraphicElement>, List<StaticText>>(graphicElements, textElements);
