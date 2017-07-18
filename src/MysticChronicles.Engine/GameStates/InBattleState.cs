@@ -30,6 +30,9 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void LoadContent()
         {
+            AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
+            AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
+
             foreach (var partyMember in _partyMembers)
             {
                 var partyMemberContent = partyMember.LoadContent();
@@ -37,10 +40,7 @@ namespace MysticChronicles.Engine.GameStates
                 AddGraphicElementRange(partyMemberContent.Item1);
 
                 AddTextElementRange(partyMemberContent.Item2);
-            }
-            
-            AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
-            AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
+            }   
         }
     }
 }
