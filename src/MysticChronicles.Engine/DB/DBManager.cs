@@ -16,6 +16,8 @@ namespace MysticChronicles.Engine.DB
 
         public DbSet<PartyMembers> PartyMembers { get; set; }
 
+        public DbSet<GameVariables> GameVariables { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Data Source={Common.Constants.SQLITE_DB_NAME}");
