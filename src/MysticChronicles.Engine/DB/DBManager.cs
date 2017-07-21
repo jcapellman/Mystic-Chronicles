@@ -12,6 +12,8 @@ namespace MysticChronicles.Engine.DB
 {
     public class DBManager : DbContext
     {
+        public DbSet<Games> Games { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Data Source={Common.Constants.SQLITE_DB_NAME}");
