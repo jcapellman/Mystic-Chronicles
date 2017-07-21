@@ -16,8 +16,4 @@
     <Compile Update="Objects\Common\GameStateContainer.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DB\" />
-  </ItemGroup>
-
 </Project>
