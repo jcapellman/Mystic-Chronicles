@@ -22,6 +22,8 @@ namespace MysticChronicles.Engine.DB
 
         public DbSet<Weapons> Weapons { get; set; }
 
+        public DbSet<EquipedWeapons> EquipedWeapons { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Data Source={Common.Constants.SQLITE_DB_NAME}");
