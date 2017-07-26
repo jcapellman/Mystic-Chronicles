@@ -10,6 +10,7 @@ namespace MysticChronicles.Engine.Managers
     {
         private Games _game;
         private List<PartyMembers> _partyMembers;
+        private List<GameVariables> _variables;
 
         public async Task<bool> LoadGame(int gameID)
         {
@@ -25,7 +26,8 @@ namespace MysticChronicles.Engine.Managers
                 _game = game;
 
                 _partyMembers = dbManager.SelectMany<PartyMembers>(a => a.GameID == gameID);
-                
+                _variables = dbManager.SelectMany<GameVariables>(a => a.GameID == gameID);
+
                 return true;
             }
         }
