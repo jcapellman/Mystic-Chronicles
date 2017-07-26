@@ -1,6 +1,6 @@
 ﻿namespace MysticChronicles.Engine.DB.Tables
 {
-    public class GameVariables
+    public class GameVariables : BaseTable
     {
         public int GameID { get; set; }
 
