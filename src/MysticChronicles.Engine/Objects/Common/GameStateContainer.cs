@@ -13,5 +13,7 @@ namespace MysticChronicles.Engine.Objects.Common
         public int Window_Height { get; set; }
 
         public SpriteFont MainFont { get; set; }
+
+        public GameContainer GContainer { get; set; }
     }
 }

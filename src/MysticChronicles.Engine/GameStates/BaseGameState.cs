@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -11,12 +10,12 @@ using MysticChronicles.Engine.Objects.Common;
 using MysticChronicles.Engine.Managers;
 using MysticChronicles.Engine.Objects.Element;
 using MysticChronicles.Engine.Objects.Element.Static;
-using MysticChronicles.Engine.Enums;
 
 namespace MysticChronicles.Engine.GameStates
 {
     public abstract class BaseGameState
     {
+        protected GameContainer gContainer;
         protected TextureManager textureManager;
         protected int Width, Height;
         protected List<BaseGraphicElement> GraphicElements;
@@ -40,7 +39,8 @@ namespace MysticChronicles.Engine.GameStates
                 Window_Height = Height,
                 Window_Width = Width,
                 TManager = textureManager,
-                MainFont = _mainFont
+                MainFont = _mainFont,
+                GContainer = gContainer
         };
 
         protected BaseGameState(GameStateContainer container)
@@ -61,7 +61,8 @@ namespace MysticChronicles.Engine.GameStates
             Window_Width = Width,
             Window_Height = Height,
             TextureManager = textureManager,
-            Font = _mainFont
+            Font = _mainFont,
+            GContainer = gContainer
         };
         
         protected void AddGraphicElement(BaseGraphicElement element)

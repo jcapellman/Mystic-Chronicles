@@ -13,5 +13,7 @@ namespace MysticChronicles.Engine.Objects.Common
         public TextureManager TextureManager { get; set; }
 
         public SpriteFont Font { get; set; }
+        
+        public GameContainer GContainer { get; set; }
     }
 }

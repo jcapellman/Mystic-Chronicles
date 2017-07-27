@@ -10,7 +10,7 @@ using MysticChronicles.Engine.Managers;
 
 namespace MysticChronicles.Engine
 {
-    public class MainGame : Game
+    public class MainGame : Microsoft.Xna.Framework.Game
     {
         private SpriteBatch _spriteBatch;
         
@@ -18,7 +18,7 @@ namespace MysticChronicles.Engine
 
         private GameStateContainer _gsContainer;
 
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
 
         public MainGame()
         {
