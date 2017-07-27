@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using MysticChronicles.Engine.DB;
@@ -31,5 +32,9 @@ namespace MysticChronicles.Engine.Managers
                 return true;
             }
         }
+
+        public GameVariables GetGameVariable(string name) =>_variables.FirstOrDefault(a => a.VarName == name);
+
+        public List<PartyMembers> GetPartyMembers() => _partyMembers;
     }
 }
