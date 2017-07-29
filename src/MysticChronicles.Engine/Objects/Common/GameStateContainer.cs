@@ -15,5 +15,7 @@ namespace MysticChronicles.Engine.Objects.Common
         public SpriteFont MainFont { get; set; }
 
         public GameContainer GContainer { get; set; }
+
+        public dynamic Bag { get; set; }
     }
 }
