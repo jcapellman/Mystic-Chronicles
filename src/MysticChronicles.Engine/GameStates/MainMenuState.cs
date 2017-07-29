@@ -19,7 +19,7 @@ namespace MysticChronicles.Engine.GameStates
                 return;
             }
             
-            RequestStateChange(new InBattleState(GsContainer));
+            RequestStateChange(new LoadGameState(GsContainer));
         }
 
         public override void LoadContent()
