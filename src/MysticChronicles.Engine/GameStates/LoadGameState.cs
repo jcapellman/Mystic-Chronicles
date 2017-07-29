@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System.Linq;
+
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Managers;
@@ -14,7 +16,12 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection)
         {
-            
+            if (!keyboardState.GetPressedKeys().Any() && touchCollection.All(a => a.State != TouchLocationState.Pressed))
+            {
+                return;
+            }
+
+            RequestStateChange(new InBattleState(GsContainer));
         }
 
         public override async void LoadContent()
