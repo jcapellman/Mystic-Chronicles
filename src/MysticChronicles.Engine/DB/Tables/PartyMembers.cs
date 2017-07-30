@@ -8,6 +8,8 @@
 
         public string Name { get; set; }
 
+        public string SpriteName { get; set; }
+
         public int CurrentHP { get; set; }
 
         public int MaxHP { get; set; }
