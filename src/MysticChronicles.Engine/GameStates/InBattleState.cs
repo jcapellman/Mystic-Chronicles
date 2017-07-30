@@ -15,12 +15,16 @@ namespace MysticChronicles.Engine.GameStates
         
         public InBattleState(GameStateContainer container) : base(container)
         {
-            _partyMembers = new List<PartyMemberObject>
+            _partyMembers = new List<PartyMemberObject>();
+
+            var dbPartyMembers = gContainer.GetPartyMembers();
+
+            for (var x = 0; x < dbPartyMembers.Count; x++)
             {
-                new PartyMemberObject("Solozar", "Soldier", 1, EContainer),
-                new PartyMemberObject("Tainer", "Tank", 2, EContainer),
-                new PartyMemberObject("Katarn", "Sniper", 3, EContainer)
-            };
+                var item = dbPartyMembers[x];
+
+                _partyMembers.Add(new PartyMemberObject(item.Name, item.SpriteName, x, EContainer));
+            }
         }
 
         public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection)
