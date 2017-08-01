@@ -34,7 +34,7 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void LoadContent()
         {
-            AddGraphicElement(new BackgroundImage(EContainer, "BattleBackgrounds/Desert"));
+            AddGraphicElement(new BackgroundImage(EContainer, $"BattleBackgrounds/{gContainer.GetGameVariable("BattleSprite")}"));
             AddGraphicElement(new BackgroundImage(EContainer, "UI/BattleOverlay"));
 
             foreach (var partyMember in _partyMembers)
