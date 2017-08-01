@@ -21,7 +21,7 @@ namespace MysticChronicles.Engine.GameStates
                 return;
             }
 
-            RequestStateChange(new InBattleState(GsContainer));
+            RequestStateChange(new WorldMapGameState(GsContainer));
         }
 
         public override async void LoadContent()
