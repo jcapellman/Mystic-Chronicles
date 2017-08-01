@@ -1,6 +1,6 @@
 # MysticChronicles
 
-A 90s style 2D RPG for iOS, Android, UWP/Xbox One.
+A 90s style 2D RPG for iOS, Android, UWP/Xbox One.  Map Editor and other tools also included.
 
 ## Requirements to Build
 * MonoGame 3.6 (http://www.monogame.net/2017/03/01/monogame-3-6/)
