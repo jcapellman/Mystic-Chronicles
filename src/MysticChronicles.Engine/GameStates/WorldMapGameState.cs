@@ -1,6 +1,4 @@
-﻿using System;
-
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Objects.Common;
@@ -15,12 +13,12 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void HandleInput(GamePadState gamePadState, KeyboardState keyboardState, TouchCollection touchCollection)
         {
-            throw new NotImplementedException();
+            // TODO Handle Game Input of charcter
         }
 
         public override void LoadContent()
         {
-            throw new NotImplementedException();
+            // TODO Load Tiles for World Map and main character sprite
         }
     }
 }
