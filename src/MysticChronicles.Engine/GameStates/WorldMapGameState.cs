@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input.Touch;
 
 using MysticChronicles.Engine.Objects.Common;
+using MysticChronicles.Engine.Objects.Element.Tiles;
 
 namespace MysticChronicles.Engine.GameStates
 {
@@ -18,7 +19,8 @@ namespace MysticChronicles.Engine.GameStates
 
         public override void LoadContent()
         {
-            // TODO Load Tiles for World Map and main character sprite
+            // TODO Load Map Format to read tiles
+            AddGraphicElement(new StaticTileElement(EContainer, "Tiles/Terrain/Grass_TopLeft", true));
         }
     }
 }
