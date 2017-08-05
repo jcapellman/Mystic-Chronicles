@@ -131,12 +131,6 @@
       <Version>5.4.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MysticChronicles.Engine\MysticChronicles.Engine.csproj">
-      <Project>{74dd17c9-6cec-4764-8d06-b2d3d45809e0}</Project>
-      <Name>MysticChronicles.Engine</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -20,7 +20,7 @@ namespace MysticChronicles.Engine.GameStates
         public override void LoadContent()
         {
             // TODO Load Map Format to read tiles
-            AddGraphicElement(new StaticTileElement(EContainer, "Tiles/Terrain/Grass_TopLeft", true));
+            AddGraphicElement(new StaticTileElement(EContainer, "Tiles/Terrain/Grass_TopLeft", true, 100, 100));
         }
     }
 }
