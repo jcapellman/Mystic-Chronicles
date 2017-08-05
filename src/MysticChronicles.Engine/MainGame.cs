@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,15 +21,20 @@ namespace MysticChronicles.Engine
 
         private readonly GraphicsDeviceManager _graphics;
 
-        public MainGame()
+        private readonly Type _initialGameState;
+
+        public MainGame(string gameName, Type initialGameState)
         {
+            Window.Title = gameName;
+            _initialGameState = initialGameState;
+
             _graphics = new GraphicsDeviceManager(this);
 
             _graphics.PreparingDeviceSettings += _graphics_PreparingDeviceSettings;
             
             Content.RootDirectory = "Content";
         }
-
+        
         private void _graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
 #if DEBUG
@@ -45,8 +51,6 @@ namespace MysticChronicles.Engine
 
         protected override void Initialize()
         {
-            Window.Title = Common.Constants.GAME_NAME;
-
             _gsContainer = new GameStateContainer
             {
                 Window_Height = Window.ClientBounds.Height,
@@ -61,8 +65,8 @@ namespace MysticChronicles.Engine
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            _currentGameState = new MainMenuState(_gsContainer);
+
+            _currentGameState = (BaseGameState)Activator.CreateInstance(_initialGameState, _gsContainer);
 
             _currentGameState.OnRequestStateChange += CurrentGameState_OnRequestStateChange;
             _currentGameState.LoadContent();
