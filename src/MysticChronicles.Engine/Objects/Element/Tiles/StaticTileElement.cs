@@ -7,13 +7,18 @@ namespace MysticChronicles.Engine.Objects.Element.Tiles
 {
     public class StaticTileElement : BaseGraphicElement
     {
-        public StaticTileElement(ElementContainer elementContainer, string textureName, bool isVisible) : base(elementContainer, textureName, isVisible)
+        private readonly int _positionX;
+        private readonly int _positionY;
+
+        public StaticTileElement(ElementContainer elementContainer, string textureName, bool isVisible, int positionX, int positionY) : base(elementContainer, textureName, isVisible)
         {
+            _positionX = positionX;
+            _positionY = positionY;
         }
 
         public override void Render(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureElement, new Rectangle(0, 0, TextureElement.Width, TextureElement.Height), Color.White);
+            spriteBatch.Draw(TextureElement, new Rectangle(_positionX, _positionY, TextureElement.Width, TextureElement.Height), Color.White);
         }
     }
 }
