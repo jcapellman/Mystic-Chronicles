@@ -27,7 +27,7 @@ namespace MysticChronicles.Library.Game.GameStates
 
         public override async void LoadContent()
         {
-            gContainer = await GameManager.LoadGame(Bag.GameID);
+            gContainer = await GameManager.LoadGame(gameID.Value);
         }
     }
 }

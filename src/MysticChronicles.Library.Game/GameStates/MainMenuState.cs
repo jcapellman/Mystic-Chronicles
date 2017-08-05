@@ -20,7 +20,7 @@ namespace MysticChronicles.Library.Game.GameStates
                 return;
             }
 
-            GsContainer.Bag.GameID = 1; // TODO Rework to actually select a game
+            gameID = 1; // TODO Rework to actually select a game
 
             RequestStateChange(new LoadGameState(GsContainer));
         }

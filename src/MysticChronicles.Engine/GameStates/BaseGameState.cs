@@ -20,7 +20,7 @@ namespace MysticChronicles.Engine.GameStates
         protected int Width, Height;
         protected List<BaseGraphicElement> GraphicElements;
         protected List<StaticText> TextElements;
-        protected dynamic Bag;
+        protected int? gameID;
 
         private readonly SpriteFont _mainFont;
 
@@ -42,7 +42,7 @@ namespace MysticChronicles.Engine.GameStates
                 TManager = textureManager,
                 MainFont = _mainFont,
                 GContainer = gContainer,
-                Bag = Bag
+                GameID = gameID
         };
 
         protected BaseGameState(GameStateContainer container)
@@ -56,6 +56,8 @@ namespace MysticChronicles.Engine.GameStates
 
             Width = container.Window_Width;
             Height = container.Window_Height;
+
+            gameID = container.GameID;
         }
 
         public ElementContainer EContainer => new ElementContainer
