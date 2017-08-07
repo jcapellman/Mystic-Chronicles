@@ -109,10 +109,6 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MysticChronicles.Engine\MysticChronicles.Engine.csproj">
-      <Project>{74dd17c9-6cec-4764-8d06-b2d3d45809e0}</Project>
-      <Name>MysticChronicles.Engine</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MysticChronicles.Library.Game\MysticChronicles.Library.Game.csproj">
       <Project>{9a301253-5f09-4698-8c28-6de76d880c09}</Project>
       <Name>MysticChronicles.Library.Game</Name>

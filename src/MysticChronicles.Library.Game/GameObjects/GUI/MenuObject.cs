@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
-using MysticChronicles.Engine.GameObjects.GUI;
-using MysticChronicles.Engine.Objects.Common;
-using MysticChronicles.Engine.Objects.Element;
-using MysticChronicles.Engine.Objects.Element.Static;
+using MODEXngine.Library.Engine.GameObjects.GUI;
+using MODEXngine.Library.Engine.Objects.Common;
+using MODEXngine.Library.Engine.Objects.Element;
+using MODEXngine.Library.Engine.Objects.Element.Static;
 
 namespace MysticChronicles.Library.Game.GameObjects.GUI
 {

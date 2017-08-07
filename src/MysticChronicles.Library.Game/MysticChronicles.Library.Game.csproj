@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MysticChronicles.Engine\MysticChronicles.Engine.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.1.2" />
+    <PackageReference Include="MODEXngine" Version="0.0.1" />
   </ItemGroup>
 
 </Project>

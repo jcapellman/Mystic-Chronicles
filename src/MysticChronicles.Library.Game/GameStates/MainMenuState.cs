@@ -3,8 +3,9 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 
-using MysticChronicles.Engine.GameStates;
-using MysticChronicles.Engine.Objects.Common;
+using MODEXngine.Library.Engine.GameStates;
+using MODEXngine.Library.Engine.Objects.Common;
+
 using MysticChronicles.Library.Game.GameObjects.GUI;
 
 namespace MysticChronicles.Library.Game.GameStates
