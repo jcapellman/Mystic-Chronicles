@@ -3,8 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 
-using MysticChronicles.Engine;
-using MysticChronicles.Library.Game.GameStates;
+using MODEXngine.Library.Engine;
 
 namespace MysticChronicles
 {
@@ -21,7 +20,7 @@ namespace MysticChronicles
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            var g = new MainGame(MysticChronicles.Library.Game.Common.Constants.GAME_NAME, typeof(MainMenuState));
+            var g = new MainGame(MysticChronicles.Library.Game.Common.Constants.GAME_NAME, typeof(MysticChronicles.Library.Game.GameStates.MainMenuState));
             SetContentView((View)g.Services.GetService(typeof(View)));
             g.Run();
         }
