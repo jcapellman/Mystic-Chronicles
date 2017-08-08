@@ -18,7 +18,7 @@ namespace MysticChronicles.Library.Game.GameObjects.GUI
 
             var textElements = new List<StaticText>
             {
-                AddText(_container.Font, "Press any key to continue", Color.White, 1, Engine.Enums.TextAlignment.HORIZONTALLY_AND_VERTICALLY_CENTERED)
+                AddText(_container.Font, "Press any key to continue", Color.White, 1, MODEXngine.Library.Engine.Enums.TextAlignment.HORIZONTALLY_AND_VERTICALLY_CENTERED)
             };
 
             return new Tuple<List<BaseGraphicElement>, List<StaticText>>(graphicElements, textElements);
