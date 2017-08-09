@@ -25,7 +25,7 @@ namespace MysticChronicles.Library.Game.GameStates
             {
                 var item = dbPartyMembers[x];
 
-                _partyMembers.Add(new PartyMemberObject(item.Name, item.SpriteName, x, EContainer));
+                _partyMembers.Add(new PartyMemberObject(item.Name, item.SpriteName, x, item.CurrentHP, item.MaxHP, EContainer));
             }
         }
 

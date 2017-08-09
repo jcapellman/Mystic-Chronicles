@@ -17,11 +17,13 @@ namespace MysticChronicles.Library.Game.GameObjects.Characters
         private int _currentHP;
         private int _maxHP;
 
-        public PartyMemberObject(string name, string className, int partyIndex, ElementContainer container) : base(container)
+        public PartyMemberObject(string name, string className, int partyIndex, int currentHP, int maxHP, ElementContainer container) : base(container)
         {
             Name = name;
             _partyIndex = partyIndex;
             _className = className;
+            _currentHP = currentHP;
+            _maxHP = maxHP;
         }
         
         public override Tuple<List<BaseGraphicElement>, List<StaticText>> LoadContent()
