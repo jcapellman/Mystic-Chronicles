@@ -86,7 +86,7 @@
       <HintPath>..\packages\Microsoft.Extensions.Primitives.1.1.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="MODEXngine.Library.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MODEXngine.0.0.1\lib\netstandard2.0\MODEXngine.Library.Engine.dll</HintPath>
+      <HintPath>..\packages\MODEXngine.0.0.1.1\lib\netstandard2.0\MODEXngine.Library.Engine.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
