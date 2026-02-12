@@ -86,44 +86,9 @@ namespace MysticChronicles
             }
         }
 
-        private async void BtnNewGame_Click(object sender, RoutedEventArgs e)
+        private void BtnNewGame_Click(object sender, RoutedEventArgs e)
         {
-            if (isDialogOpen) return;
-
-            isDialogOpen = true;
-
-            var dialog = new ContentDialog
-            {
-                Title = "Create Character",
-                PrimaryButtonText = "Start Game",
-                CloseButtonText = "Cancel"
-            };
-
-            var textBox = new TextBox
-            {
-                PlaceholderText = "Enter character name",
-                Text = "Snake",
-                MaxLength = 20
-            };
-
-            var panel = new StackPanel();
-            panel.Children.Add(new TextBlock 
-            { 
-                Text = "Enter your hero's name:",
-                Margin = new Thickness(0, 0, 0, 10)
-            });
-            panel.Children.Add(textBox);
-
-            dialog.Content = panel;
-
-            var result = await dialog.ShowAsync();
-            isDialogOpen = false;
-
-            if (result == ContentDialogResult.Primary)
-            {
-                string heroName = string.IsNullOrWhiteSpace(textBox.Text) ? "Snake" : textBox.Text.Trim();
-                this.Frame.Navigate(typeof(GamePage), heroName);
-            }
+            this.Frame.Navigate(typeof(CharacterCreationPage));
         }
 
         private async void BtnLoadGame_Click(object sender, RoutedEventArgs e)
