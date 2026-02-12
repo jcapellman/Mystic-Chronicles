@@ -21,6 +21,11 @@ namespace MysticChronicles
         private Character hero;
         private DispatcherTimer gameTimer;
         private bool isMenuOpen = false;
+        private int battleMenuSelection = 0;
+        private const int BattleMenuItemCount = 4;
+        private int inGameMenuSelection = 0;
+        private const int InGameMenuItemCount = 3;
+        private bool isDialogOpen = false;
 
         public GamePage()
         {
@@ -30,13 +35,13 @@ namespace MysticChronicles
             gameTimer.Interval = TimeSpan.FromMilliseconds(16);
             gameTimer.Tick += GameTimer_Tick;
             gameTimer.Start();
-
-            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
         }
 
         protected override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
 
             if (e.Parameter is string heroName)
             {
@@ -50,6 +55,13 @@ namespace MysticChronicles
             {
                 InitializeNewGame("Hero");
             }
+        }
+
+        protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            Window.Current.CoreWindow.KeyDown -= CoreWindow_KeyDown;
+            gameTimer.Stop();
         }
 
         private void InitializeNewGame(string heroName)
@@ -170,7 +182,7 @@ namespace MysticChronicles
 
         private void DrawBattleMode(CanvasDrawingSession session)
         {
-            session.FillRectangle(0, 0, (float)canvas.ActualWidth, (float)canvas.ActualHeight, Color.FromArgb(255, 20, 20, 40));
+            DrawBattleBackground(session);
 
             float heroX = 150;
             float heroY = (float)canvas.ActualHeight / 2;
@@ -186,6 +198,84 @@ namespace MysticChronicles
             }
         }
 
+        private void DrawBattleBackground(CanvasDrawingSession session)
+        {
+            float width = (float)canvas.ActualWidth;
+            float height = (float)canvas.ActualHeight;
+
+            int seed = 0;
+            if (battleSystem != null && battleSystem.CurrentEnemy != null)
+            {
+                seed = battleSystem.CurrentEnemy.Name.GetHashCode();
+            }
+
+            Random rand = new Random(seed);
+            int backgroundType = rand.Next(5);
+
+            if (backgroundType == 0)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    float ratio = y / height;
+                    byte r = (byte)(20 + ratio * 40);
+                    byte g = (byte)(10 + ratio * 30);
+                    byte b = (byte)(60 + ratio * 80);
+                    session.DrawLine(0, y, width, y, Color.FromArgb(255, r, g, b));
+                }
+            }
+            else if (backgroundType == 1)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    float ratio = y / height;
+                    byte r = (byte)(40 + ratio * 60);
+                    byte g = (byte)(20 + ratio * 40);
+                    byte b = (byte)(20 + ratio * 30);
+                    session.DrawLine(0, y, width, y, Color.FromArgb(255, r, g, b));
+                }
+            }
+            else if (backgroundType == 2)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    float ratio = y / height;
+                    byte r = (byte)(10 + ratio * 30);
+                    byte g = (byte)(40 + ratio * 70);
+                    byte b = (byte)(30 + ratio * 50);
+                    session.DrawLine(0, y, width, y, Color.FromArgb(255, r, g, b));
+                }
+            }
+            else if (backgroundType == 3)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    float ratio = y / height;
+                    byte r = (byte)(60 + ratio * 80);
+                    byte g = (byte)(40 + ratio * 60);
+                    byte b = (byte)(10 + ratio * 20);
+                    session.DrawLine(0, y, width, y, Color.FromArgb(255, r, g, b));
+                }
+            }
+            else
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    float ratio = y / height;
+                    byte r = (byte)(30 + ratio * 50);
+                    byte g = (byte)(20 + ratio * 40);
+                    byte b = (byte)(50 + ratio * 90);
+                    session.DrawLine(0, y, width, y, Color.FromArgb(255, r, g, b));
+                }
+            }
+
+            for (int i = 0; i < 50; i++)
+            {
+                float x = rand.Next((int)width);
+                float y = rand.Next((int)height);
+                session.FillCircle(x, y, 2, Color.FromArgb(100, 255, 255, 255));
+            }
+        }
+
         private void GameTimer_Tick(object sender, object e)
         {
             canvas.Invalidate();
@@ -193,6 +283,13 @@ namespace MysticChronicles
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
+            args.Handled = true;
+
+            if (isDialogOpen)
+            {
+                return;
+            }
+
             if (args.VirtualKey == Windows.System.VirtualKey.Escape)
             {
                 ToggleMenu();
@@ -201,12 +298,127 @@ namespace MysticChronicles
 
             if (isMenuOpen)
             {
+                HandleInGameMenuInput(args.VirtualKey);
                 return;
             }
 
-            if (gameState == GameState.Exploration)
+            if (gameState == GameState.Battle)
+            {
+                HandleBattleInput(args.VirtualKey);
+            }
+            else if (gameState == GameState.Exploration)
             {
                 HandleExplorationInput(args.VirtualKey);
+            }
+        }
+
+        private void HandleInGameMenuInput(Windows.System.VirtualKey key)
+        {
+            if (key == Windows.System.VirtualKey.Up || key == Windows.System.VirtualKey.W)
+            {
+                inGameMenuSelection--;
+                if (inGameMenuSelection < 0)
+                {
+                    inGameMenuSelection = InGameMenuItemCount - 1;
+                }
+                UpdateInGameMenuCursor();
+            }
+            else if (key == Windows.System.VirtualKey.Down || key == Windows.System.VirtualKey.S)
+            {
+                inGameMenuSelection++;
+                if (inGameMenuSelection >= InGameMenuItemCount)
+                {
+                    inGameMenuSelection = 0;
+                }
+                UpdateInGameMenuCursor();
+            }
+            else if (key == Windows.System.VirtualKey.Enter || key == Windows.System.VirtualKey.Space)
+            {
+                ExecuteInGameMenuSelection();
+            }
+        }
+
+        private void UpdateInGameMenuCursor()
+        {
+            cursorResume.Visibility = inGameMenuSelection == 0 ? Visibility.Visible : Visibility.Collapsed;
+            cursorSave.Visibility = inGameMenuSelection == 1 ? Visibility.Visible : Visibility.Collapsed;
+            cursorMainMenu.Visibility = inGameMenuSelection == 2 ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void ExecuteInGameMenuSelection()
+        {
+            switch (inGameMenuSelection)
+            {
+                case 0:
+                    BtnResume_Click(null, null);
+                    break;
+                case 1:
+                    if (gameState == GameState.Exploration)
+                    {
+                        BtnSave_Click(null, null);
+                    }
+                    break;
+                case 2:
+                    BtnMainMenu_Click(null, null);
+                    break;
+            }
+        }
+
+        private void HandleBattleInput(Windows.System.VirtualKey key)
+        {
+            if (battleSystem.CurrentEnemy == null)
+            {
+                return;
+            }
+
+            if (key == Windows.System.VirtualKey.Up || key == Windows.System.VirtualKey.W)
+            {
+                battleMenuSelection--;
+                if (battleMenuSelection < 0)
+                {
+                    battleMenuSelection = BattleMenuItemCount - 1;
+                }
+                UpdateBattleMenuHighlight();
+            }
+            else if (key == Windows.System.VirtualKey.Down || key == Windows.System.VirtualKey.S)
+            {
+                battleMenuSelection++;
+                if (battleMenuSelection >= BattleMenuItemCount)
+                {
+                    battleMenuSelection = 0;
+                }
+                UpdateBattleMenuHighlight();
+            }
+            else if (key == Windows.System.VirtualKey.Enter || key == Windows.System.VirtualKey.Space)
+            {
+                ExecuteBattleCommand(battleMenuSelection);
+            }
+        }
+
+        private void UpdateBattleMenuHighlight()
+        {
+            cursorAttack.Visibility = battleMenuSelection == 0 ? Visibility.Visible : Visibility.Collapsed;
+            cursorMagic.Visibility = battleMenuSelection == 1 ? Visibility.Visible : Visibility.Collapsed;
+            cursorItem.Visibility = battleMenuSelection == 2 ? Visibility.Visible : Visibility.Collapsed;
+            cursorDefend.Visibility = battleMenuSelection == 3 ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void ExecuteBattleCommand(int commandIndex)
+        {
+            switch (commandIndex)
+            {
+                case 0:
+                    ExecuteAttackCommand();
+                    break;
+                case 1:
+                    ExecuteMagicCommand();
+                    break;
+                case 2:
+                    ExecuteItemCommand();
+                    break;
+                case 3:
+                    ExecuteDefendCommand();
+                    break;
             }
         }
 
@@ -220,7 +432,11 @@ namespace MysticChronicles
             isMenuOpen = !isMenuOpen;
             inGameMenu.Visibility = isMenuOpen ? Visibility.Visible : Visibility.Collapsed;
 
-            btnSave.IsEnabled = gameState == GameState.Exploration;
+            if (isMenuOpen)
+            {
+                inGameMenuSelection = 0;
+                UpdateInGameMenuCursor();
+            }
         }
 
         private void HandleExplorationInput(Windows.System.VirtualKey key)
@@ -268,10 +484,12 @@ namespace MysticChronicles
             gameState = GameState.Battle;
             battleSystem.StartBattle(hero);
             battleMenu.Visibility = Visibility.Visible;
+            battleMenuSelection = 0;
+            UpdateBattleMenuHighlight();
             UpdateUI();
         }
 
-        private void BtnAttack_Click(object sender, RoutedEventArgs e)
+        private void ExecuteAttackCommand()
         {
             if (battleSystem.CurrentEnemy == null) return;
 
@@ -296,7 +514,7 @@ namespace MysticChronicles
             UpdateUI();
         }
 
-        private void BtnSkill_Click(object sender, RoutedEventArgs e)
+        private void ExecuteMagicCommand()
         {
             if (hero.CurrentMP >= 10)
             {
@@ -328,11 +546,11 @@ namespace MysticChronicles
             UpdateUI();
         }
 
-        private void BtnItem_Click(object sender, RoutedEventArgs e)
+        private void ExecuteItemCommand()
         {
             hero.CurrentHP = Math.Min(hero.CurrentHP + 30, hero.MaxHP);
             txtMessage.Text = $"{hero.Name} uses Potion! Restored 30 HP!";
-            
+
             string enemyAction = battleSystem.ExecuteEnemyTurn();
             txtMessage.Text += "\n" + enemyAction;
 
@@ -344,14 +562,14 @@ namespace MysticChronicles
             UpdateUI();
         }
 
-        private void BtnDefend_Click(object sender, RoutedEventArgs e)
+        private void ExecuteDefendCommand()
         {
             int originalDefense = hero.Defense;
             hero.Defense = (int)(hero.Defense * 1.5);
-            
+
             string enemyAction = battleSystem.ExecuteEnemyTurn();
             txtMessage.Text = $"{hero.Name} defends!\n" + enemyAction;
-            
+
             hero.Defense = originalDefense;
 
             if (hero.CurrentHP <= 0)
@@ -389,7 +607,7 @@ namespace MysticChronicles
             txtGameState.Text = $"Mode: {gameState}";
             txtHeroStats.Text = $"{hero.Name} - Lv.{hero.Level} | HP: {hero.CurrentHP}/{hero.MaxHP} | MP: {hero.CurrentMP}/{hero.MaxMP}";
 
-            if (gameState == GameState.Battle && battleSystem.CurrentEnemy != null)
+            if (gameState == GameState.Battle && battleSystem != null && battleSystem.CurrentEnemy != null)
             {
                 txtMessage.Text = $"Enemy: {battleSystem.CurrentEnemy.Name} | HP: {battleSystem.CurrentEnemy.CurrentHP}/{battleSystem.CurrentEnemy.MaxHP}";
             }
@@ -402,6 +620,12 @@ namespace MysticChronicles
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (isDialogOpen) return;
+
+            isMenuOpen = false;
+            inGameMenu.Visibility = Visibility.Collapsed;
+            isDialogOpen = true;
+
             bool success = await SaveGameManager.SaveGame(hero);
 
             var dialog = new ContentDialog
@@ -412,10 +636,17 @@ namespace MysticChronicles
             };
 
             await dialog.ShowAsync();
+            isDialogOpen = false;
         }
 
         private async void BtnMainMenu_Click(object sender, RoutedEventArgs e)
         {
+            if (isDialogOpen) return;
+
+            isMenuOpen = false;
+            inGameMenu.Visibility = Visibility.Collapsed;
+            isDialogOpen = true;
+
             var dialog = new ContentDialog
             {
                 Title = "Return to Main Menu?",
@@ -425,6 +656,7 @@ namespace MysticChronicles
             };
 
             var result = await dialog.ShowAsync();
+            isDialogOpen = false;
 
             if (result == ContentDialogResult.Primary)
             {

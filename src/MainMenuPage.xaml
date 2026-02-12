@@ -2,55 +2,54 @@
     x:Class="MysticChronicles.MainMenuPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
-    <Grid Background="Black">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Mystic Chronicles" 
-                   FontSize="72" 
-                   FontWeight="Bold"
-                   Foreground="Gold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"
-                   Margin="0,0,0,50"/>
+    <Grid>
+        <Image Source="Assets/MainMenu.png" Stretch="UniformToFill"/>
 
-        <StackPanel Grid.Row="1" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Width="300">
-            <Button x:Name="btnNewGame" 
-                    Content="New Game" 
-                    Click="BtnNewGame_Click"
-                    FontSize="24"
-                    Margin="0,10"
-                    Padding="20,10"
-                    HorizontalAlignment="Stretch"/>
-            <Button x:Name="btnLoadGame" 
-                    Content="Load Game" 
-                    Click="BtnLoadGame_Click"
-                    FontSize="24"
-                    Margin="0,10"
-                    Padding="20,10"
-                    HorizontalAlignment="Stretch"/>
-            <Button x:Name="btnExit" 
-                    Content="Exit" 
-                    Click="BtnExit_Click"
-                    FontSize="24"
-                    Margin="0,10"
-                    Padding="20,10"
-                    HorizontalAlignment="Stretch"/>
-        </StackPanel>
+        <Grid>
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Margin="0,150,0,0">
+                <Grid Width="250" Margin="0,15">
+                    <Image x:Name="cursorNewGame" Source="Assets/Cursor.png" Width="32" Height="32" HorizontalAlignment="Left" Visibility="Visible"/>
+                    <TextBlock x:Name="txtNewGame" Text="New Game" 
+                               FontSize="32" 
+                               FontFamily="Segoe UI" 
+                               Foreground="White"
+                               FontWeight="Normal"
+                               Margin="50,0,0,0"
+                               HorizontalAlignment="Left"/>
+                </Grid>
 
-        <TextBlock Grid.Row="2" 
-                   Text="© 2024 Mystic Chronicles" 
-                   FontSize="14"
-                   Foreground="Gray"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"
-                   Margin="0,0,0,20"/>
+                <Grid Width="250" Margin="0,15">
+                    <Image x:Name="cursorLoadGame" Source="Assets/Cursor.png" Width="32" Height="32" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                    <TextBlock x:Name="txtLoadGame" Text="Load Game" 
+                               FontSize="32" 
+                               FontFamily="Segoe UI" 
+                               Foreground="White"
+                               FontWeight="Normal"
+                               Margin="50,0,0,0"
+                               HorizontalAlignment="Left"/>
+                </Grid>
+
+                <Grid Width="250" Margin="0,15">
+                    <Image x:Name="cursorExit" Source="Assets/Cursor.png" Width="32" Height="32" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                    <TextBlock x:Name="txtExit" Text="Exit" 
+                               FontSize="32" 
+                               FontFamily="Segoe UI" 
+                               Foreground="White"
+                               FontWeight="Normal"
+                               Margin="50,0,0,0"
+                               HorizontalAlignment="Left"/>
+                </Grid>
+            </StackPanel>
+
+            <TextBlock Text="© 2024 Mystic Chronicles" 
+                       FontSize="14"
+                       Foreground="LightGray"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       Margin="0,0,0,20"/>
+        </Grid>
     </Grid>
 </Page>

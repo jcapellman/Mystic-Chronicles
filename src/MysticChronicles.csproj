@@ -112,7 +112,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Cursor.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\MainMenu.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />

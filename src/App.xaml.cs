@@ -37,6 +37,10 @@ namespace MysticChronicles
                 {
                     rootFrame.Navigate(typeof(MainMenuPage), e.Arguments);
                 }
+
+                var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+                view.TryEnterFullScreenMode();
+
                 Window.Current.Activate();
             }
         }
