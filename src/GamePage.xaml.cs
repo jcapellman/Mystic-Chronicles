@@ -4,6 +4,7 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Popups;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using MysticChronicles.Models;
@@ -19,12 +20,12 @@ namespace MysticChronicles
         private Map currentMap;
         private Character hero;
         private DispatcherTimer gameTimer;
+        private bool isMenuOpen = false;
 
         public GamePage()
         {
             this.InitializeComponent();
-            InitializeGame();
-            
+
             gameTimer = new DispatcherTimer();
             gameTimer.Interval = TimeSpan.FromMilliseconds(16);
             gameTimer.Tick += GameTimer_Tick;
@@ -33,11 +34,29 @@ namespace MysticChronicles
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
         }
 
-        private void InitializeGame()
+        protected override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is string heroName)
+            {
+                InitializeNewGame(heroName);
+            }
+            else if (e.Parameter is SaveData saveData)
+            {
+                LoadGame(saveData);
+            }
+            else
+            {
+                InitializeNewGame("Hero");
+            }
+        }
+
+        private void InitializeNewGame(string heroName)
         {
             hero = new Character
             {
-                Name = "Hero",
+                Name = heroName,
                 Level = 1,
                 MaxHP = 100,
                 CurrentHP = 100,
@@ -50,6 +69,20 @@ namespace MysticChronicles
                 X = 5,
                 Y = 5
             };
+
+            currentMap = new Map(20, 15);
+            currentMap.GenerateMap();
+
+            gameState = GameState.Exploration;
+            battleSystem = new BattleSystem();
+            inputManager = new InputManager();
+
+            UpdateUI();
+        }
+
+        private void LoadGame(SaveData saveData)
+        {
+            hero = saveData.ToCharacter();
 
             currentMap = new Map(20, 15);
             currentMap.GenerateMap();
@@ -160,10 +193,34 @@ namespace MysticChronicles
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
+            if (args.VirtualKey == Windows.System.VirtualKey.Escape)
+            {
+                ToggleMenu();
+                return;
+            }
+
+            if (isMenuOpen)
+            {
+                return;
+            }
+
             if (gameState == GameState.Exploration)
             {
                 HandleExplorationInput(args.VirtualKey);
             }
+        }
+
+        private void ToggleMenu()
+        {
+            if (gameState == GameState.Battle)
+            {
+                return;
+            }
+
+            isMenuOpen = !isMenuOpen;
+            inGameMenu.Visibility = isMenuOpen ? Visibility.Visible : Visibility.Collapsed;
+
+            btnSave.IsEnabled = gameState == GameState.Exploration;
         }
 
         private void HandleExplorationInput(Windows.System.VirtualKey key)
@@ -335,6 +392,43 @@ namespace MysticChronicles
             if (gameState == GameState.Battle && battleSystem.CurrentEnemy != null)
             {
                 txtMessage.Text = $"Enemy: {battleSystem.CurrentEnemy.Name} | HP: {battleSystem.CurrentEnemy.CurrentHP}/{battleSystem.CurrentEnemy.MaxHP}";
+            }
+        }
+
+        private void BtnResume_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleMenu();
+        }
+
+        private async void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            bool success = await SaveGameManager.SaveGame(hero);
+
+            var dialog = new ContentDialog
+            {
+                Title = success ? "Game Saved" : "Save Failed",
+                Content = success ? "Your progress has been saved." : "Failed to save game.",
+                CloseButtonText = "OK"
+            };
+
+            await dialog.ShowAsync();
+        }
+
+        private async void BtnMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Return to Main Menu?",
+                Content = "Any unsaved progress will be lost.",
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "No"
+            };
+
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                this.Frame.Navigate(typeof(MainMenuPage));
             }
         }
     }

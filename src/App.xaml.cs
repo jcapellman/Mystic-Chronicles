@@ -35,7 +35,7 @@ namespace MysticChronicles
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(GamePage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainMenuPage), e.Arguments);
                 }
                 Window.Current.Activate();
             }
