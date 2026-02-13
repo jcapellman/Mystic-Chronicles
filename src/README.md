@@ -14,6 +14,8 @@ A classic **Final Fantasy**-inspired RPG built with UWP (Universal Windows Platf
 - **Random encounters** - Face enemies as you explore the world
 - **Turn-based battles** - Strategic Final Fantasy-style combat system
 - **Character progression** - Level up your hero and gain experience
+- **Full screen mode** - Immersive gameplay with F11 toggle
+- **Hidden cursor** - No mouse cursor from start to finish (keyboard/gamepad only)
 
 ### 🎨 Final Fantasy VI-Inspired UI
 - **Classic FF blue background** with white borders (#0000AA)
@@ -51,10 +53,12 @@ A classic **Final Fantasy**-inspired RPG built with UWP (Universal Windows Platf
 ### Exploration
 - **W/A/S/D or Arrow Keys** - Move character
 - **ESC** - Open in-game menu
+- **F11** - Toggle full screen mode
 
 ### Battle
 - **W/S or Up/Down** - Select command
 - **Enter / Space** - Execute command
+- **F11** - Toggle full screen mode
 - Commands: Fight, Magic (10 MP), Item (restore 30 HP), Defend
 
 ### Character Creation

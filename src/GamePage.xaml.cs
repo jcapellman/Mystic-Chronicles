@@ -35,6 +35,9 @@ namespace MysticChronicles
         private float mistOffset = 0;
         private float animationTime = 0;
 
+        // Full screen mode
+        private bool isFullScreen = false;
+
         public GamePage()
         {
             this.InitializeComponent();
@@ -50,6 +53,10 @@ namespace MysticChronicles
             base.OnNavigatedTo(e);
 
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+
+            // Enter full screen mode and hide cursor for immersive gameplay
+            EnterFullScreenMode();
+            HideCursor();
 
             if (e.Parameter is string heroName)
             {
@@ -70,6 +77,10 @@ namespace MysticChronicles
             base.OnNavigatedFrom(e);
             Window.Current.CoreWindow.KeyDown -= CoreWindow_KeyDown;
             gameTimer.Stop();
+
+            // Restore cursor and exit full screen when leaving game
+            ShowCursor();
+            ExitFullScreenMode();
         }
 
         private void InitializeNewGame(string heroName)
@@ -946,6 +957,46 @@ namespace MysticChronicles
             {
                 this.Frame.Navigate(typeof(MainMenuPage));
             }
+        }
+
+        // Full Screen and Cursor Management
+        private void EnterFullScreenMode()
+        {
+            var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            if (view.TryEnterFullScreenMode())
+            {
+                isFullScreen = true;
+            }
+        }
+
+        private void ExitFullScreenMode()
+        {
+            var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            view.ExitFullScreenMode();
+            isFullScreen = false;
+        }
+
+        private void ToggleFullScreen()
+        {
+            if (isFullScreen)
+            {
+                ExitFullScreenMode();
+            }
+            else
+            {
+                EnterFullScreenMode();
+            }
+        }
+
+        private void HideCursor()
+        {
+            Window.Current.CoreWindow.PointerCursor = null;
+        }
+
+        private void ShowCursor()
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(
+                Windows.UI.Core.CoreCursorType.Arrow, 0);
         }
     }
 }

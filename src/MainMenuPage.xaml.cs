@@ -39,12 +39,18 @@ namespace MysticChronicles
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             UpdateMenuCursor();
             MusicManager.PlayMusic(MusicTrack.MainMenu);
+
+            // Hide system cursor for immersive menu experience
+            HideCursor();
         }
 
         protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
             Window.Current.CoreWindow.KeyDown -= CoreWindow_KeyDown;
+
+            // Show cursor when leaving (game page will hide it again)
+            ShowCursor();
         }
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
@@ -217,6 +223,18 @@ namespace MysticChronicles
                 session.FillEllipse(x, y + wave, 100, 35, Color.FromArgb(50, 220, 220, 255));
                 session.FillEllipse(x + 50, y + wave + 15, 80, 30, Color.FromArgb(35, 220, 220, 255));
             }
+        }
+
+        // Cursor Management
+        private void HideCursor()
+        {
+            Window.Current.CoreWindow.PointerCursor = null;
+        }
+
+        private void ShowCursor()
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(
+                Windows.UI.Core.CoreCursorType.Arrow, 0);
         }
     }
 }
