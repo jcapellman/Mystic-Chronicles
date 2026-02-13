@@ -38,11 +38,29 @@ namespace MysticChronicles
                     rootFrame.Navigate(typeof(MainMenuPage), e.Arguments);
                 }
 
-                var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
-                view.TryEnterFullScreenMode();
+                // Enter full screen mode and hide cursor globally for entire game session
+                EnterFullScreenMode();
+                HideCursor();
 
                 Window.Current.Activate();
             }
+        }
+
+        /// <summary>
+        /// Enter full screen mode for immersive RPG experience
+        /// </summary>
+        private void EnterFullScreenMode()
+        {
+            var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            view.TryEnterFullScreenMode();
+        }
+
+        /// <summary>
+        /// Hide system cursor for entire game session (keyboard/gamepad only)
+        /// </summary>
+        private void HideCursor()
+        {
+            Window.Current.CoreWindow.PointerCursor = null;
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)

@@ -9,7 +9,7 @@ using Windows.UI;
 
 namespace MysticChronicles
 {
-    public sealed partial class MainMenuPage : Page
+    public sealed partial class MainMenuPage : BasePage
     {
         private int menuSelection = 0;
         private const int MenuItemCount = 3;
@@ -39,18 +39,12 @@ namespace MysticChronicles
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             UpdateMenuCursor();
             MusicManager.PlayMusic(MusicTrack.MainMenu);
-
-            // Hide system cursor for immersive menu experience
-            HideCursor();
         }
 
         protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
             Window.Current.CoreWindow.KeyDown -= CoreWindow_KeyDown;
-
-            // Show cursor when leaving (game page will hide it again)
-            ShowCursor();
         }
 
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)

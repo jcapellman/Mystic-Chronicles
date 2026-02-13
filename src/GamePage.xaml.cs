@@ -13,7 +13,7 @@ using MysticChronicles.Services;
 
 namespace MysticChronicles
 {
-    public sealed partial class GamePage : Page
+    public sealed partial class GamePage : BasePage
     {
         private GameState gameState;
         private BattleSystem battleSystem;

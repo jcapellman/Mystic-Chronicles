@@ -6,7 +6,7 @@ using Windows.System;
 
 namespace MysticChronicles
 {
-    public sealed partial class CharacterCreationPage : Page
+    public sealed partial class CharacterCreationPage : BasePage
     {
         private int selection = 0;
         private const int OptionCount = 2;

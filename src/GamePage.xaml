@@ -1,8 +1,9 @@
-<Page
+<local:BasePage
     x:Class="MysticChronicles.GamePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml">
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:local="using:MysticChronicles">
 
     <Grid Background="Black">
         <canvas:CanvasControl x:Name="canvas" Draw="Canvas_Draw" CreateResources="Canvas_CreateResources"/>
@@ -157,4 +158,4 @@
             </Border>
         </Grid>
     </Grid>
-</Page>
+</local:BasePage>
