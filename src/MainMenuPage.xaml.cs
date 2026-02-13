@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using Windows.System;
+using MysticChronicles.Services;
 
 namespace MysticChronicles
 {
@@ -22,6 +23,7 @@ namespace MysticChronicles
             base.OnNavigatedTo(e);
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             UpdateMenuCursor();
+            MusicManager.PlayMusic(MusicTrack.MainMenu);
         }
 
         protected override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)

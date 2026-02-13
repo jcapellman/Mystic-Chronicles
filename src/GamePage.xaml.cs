@@ -9,6 +9,7 @@ using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using MysticChronicles.Models;
 using MysticChronicles.GameEngine;
+using MysticChronicles.Services;
 
 namespace MysticChronicles
 {
@@ -26,6 +27,7 @@ namespace MysticChronicles
         private int inGameMenuSelection = 0;
         private const int InGameMenuItemCount = 3;
         private bool isDialogOpen = false;
+        private Microsoft.Graphics.Canvas.CanvasBitmap battleBackgroundBitmap;
 
         public GamePage()
         {
@@ -89,6 +91,7 @@ namespace MysticChronicles
             battleSystem = new BattleSystem();
             inputManager = new InputManager();
 
+            MusicManager.PlayMusic(MusicTrack.Exploration);
             UpdateUI();
         }
 
@@ -106,8 +109,23 @@ namespace MysticChronicles
             UpdateUI();
         }
 
-        private void Canvas_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
+        private async void Canvas_CreateResources(CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
+            args.TrackAsyncAction(LoadBattleBackgroundAsync(sender).AsAsyncAction());
+        }
+
+        private async System.Threading.Tasks.Task LoadBattleBackgroundAsync(CanvasControl sender)
+        {
+            try
+            {
+                var uri = new Uri("ms-appx:///Assets/BattleBackgrounds/City.png");
+                battleBackgroundBitmap = await Microsoft.Graphics.Canvas.CanvasBitmap.LoadAsync(sender, uri);
+            }
+            catch (Exception)
+            {
+                // If image fails to load, battleBackgroundBitmap will remain null
+                // and we'll fall back to gradient backgrounds
+            }
         }
 
         private void Canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
@@ -203,6 +221,28 @@ namespace MysticChronicles
             float width = (float)canvas.ActualWidth;
             float height = (float)canvas.ActualHeight;
 
+            // If we have a battle background image loaded, use it (Final Fantasy style)
+            if (battleBackgroundBitmap != null)
+            {
+                // Calculate scaling to fill the screen while maintaining aspect ratio
+                float scaleX = width / (float)battleBackgroundBitmap.Size.Width;
+                float scaleY = height / (float)battleBackgroundBitmap.Size.Height;
+                float scale = Math.Max(scaleX, scaleY); // Use max to ensure full coverage
+
+                float scaledWidth = (float)battleBackgroundBitmap.Size.Width * scale;
+                float scaledHeight = (float)battleBackgroundBitmap.Size.Height * scale;
+
+                // Center the image
+                float x = (width - scaledWidth) / 2;
+                float y = (height - scaledHeight) / 2;
+
+                session.DrawImage(battleBackgroundBitmap, 
+                    new Windows.Foundation.Rect(x, y, scaledWidth, scaledHeight));
+
+                return;
+            }
+
+            // Fallback to gradient backgrounds if image didn't load
             int seed = 0;
             if (battleSystem != null && battleSystem.CurrentEnemy != null)
             {
@@ -486,6 +526,7 @@ namespace MysticChronicles
             battleMenu.Visibility = Visibility.Visible;
             battleMenuSelection = 0;
             UpdateBattleMenuHighlight();
+            MusicManager.PlayMusic(MusicTrack.Battle);
             UpdateUI();
         }
 
@@ -591,12 +632,23 @@ namespace MysticChronicles
                 txtMessage.Text = $"Victory! Gained {expGained} EXP!";
                 hero.CurrentHP = Math.Min(hero.CurrentHP + 20, hero.MaxHP);
                 hero.CurrentMP = Math.Min(hero.CurrentMP + 10, hero.MaxMP);
+                MusicManager.PlayMusic(MusicTrack.Victory);
+
+                // Return to exploration music after 5 seconds
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+                timer.Tick += (s, e) =>
+                {
+                    MusicManager.PlayMusic(MusicTrack.Exploration);
+                    ((DispatcherTimer)s).Stop();
+                };
+                timer.Start();
             }
             else
             {
                 txtMessage.Text = "Defeated! Game Over!";
                 hero.CurrentHP = hero.MaxHP;
                 hero.CurrentMP = hero.MaxMP;
+                MusicManager.PlayMusic(MusicTrack.GameOver);
             }
 
             UpdateUI();
