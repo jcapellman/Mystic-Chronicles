@@ -29,6 +29,12 @@ namespace MysticChronicles
         private bool isDialogOpen = false;
         private Microsoft.Graphics.Canvas.CanvasBitmap battleBackgroundBitmap;
 
+        // Cloud/Mist animation
+        private float cloudOffset1 = 0;
+        private float cloudOffset2 = 0;
+        private float mistOffset = 0;
+        private float animationTime = 0;
+
         public GamePage()
         {
             this.InitializeComponent();
@@ -203,17 +209,196 @@ namespace MysticChronicles
         {
             DrawBattleBackground(session);
 
-            float heroX = 150;
-            float heroY = (float)canvas.ActualHeight / 2;
-            session.FillCircle(heroX, heroY, 30, Colors.LightBlue);
-            session.DrawText("HERO", heroX - 20, heroY + 40, Colors.White);
+            float width = (float)canvas.ActualWidth;
+            float height = (float)canvas.ActualHeight;
 
+            // FF6 Style: Hero on the RIGHT side
+            float heroX = width - 200;
+            float heroY = height / 2 + 50;
+
+            // Draw hero platform/shadow
+            session.FillEllipse(heroX, heroY + 60, 35, 12, Color.FromArgb(100, 0, 0, 0));
+
+            // Draw FF6-style hero sprite
+            DrawHeroSprite(session, heroX, heroY);
+
+            // FF6 Style: Enemy on the LEFT side
             if (battleSystem.CurrentEnemy != null)
             {
-                float enemyX = (float)canvas.ActualWidth - 150;
-                float enemyY = (float)canvas.ActualHeight / 2;
-                session.FillCircle(enemyX, enemyY, 35, Colors.Red);
-                session.DrawText(battleSystem.CurrentEnemy.Name, enemyX - 30, enemyY + 45, Colors.White);
+                float enemyX = 250;
+                float enemyY = height / 2 - 50;
+
+                // Draw enemy platform/shadow
+                session.FillEllipse(enemyX, enemyY + 70, 45, 15, Color.FromArgb(100, 0, 0, 0));
+
+                // Draw FF6-style enemy sprite
+                DrawEnemySprite(session, enemyX, enemyY, battleSystem.CurrentEnemy.Name);
+
+                // Enemy name above
+                session.DrawText(battleSystem.CurrentEnemy.Name, enemyX - 40, enemyY - 90, Colors.Yellow,
+                    new Microsoft.Graphics.Canvas.Text.CanvasTextFormat { FontSize = 18, FontWeight = Windows.UI.Text.FontWeights.Bold });
+
+                // Enemy HP bar (FF6 style - above enemy)
+                float barWidth = 100;
+                float barHeight = 8;
+                float barX = enemyX - barWidth / 2;
+                float barY = enemyY + 75;
+
+                // HP bar background
+                session.FillRectangle(barX, barY, barWidth, barHeight, Color.FromArgb(255, 50, 50, 50));
+
+                // HP bar fill
+                float hpPercent = (float)battleSystem.CurrentEnemy.CurrentHP / battleSystem.CurrentEnemy.MaxHP;
+                Color hpColor = hpPercent > 0.5f ? Colors.Green : (hpPercent > 0.25f ? Colors.Yellow : Colors.Red);
+                session.FillRectangle(barX, barY, barWidth * hpPercent, barHeight, hpColor);
+
+                // HP bar border
+                session.DrawRectangle(barX, barY, barWidth, barHeight, Colors.White, 1);
+            }
+        }
+
+        private void DrawHeroSprite(CanvasDrawingSession session, float x, float y)
+        {
+            // FF6-style warrior sprite (pixel art style)
+
+            // Legs
+            session.FillRectangle(x - 12, y + 35, 10, 18, Color.FromArgb(255, 80, 80, 120)); // Left leg
+            session.FillRectangle(x + 2, y + 35, 10, 18, Color.FromArgb(255, 80, 80, 120)); // Right leg
+
+            // Body/Armor
+            session.FillRectangle(x - 18, y + 10, 36, 28, Color.FromArgb(255, 120, 150, 200)); // Torso
+            session.FillRectangle(x - 15, y + 12, 30, 22, Color.FromArgb(255, 90, 120, 180)); // Armor detail
+
+            // Belt
+            session.FillRectangle(x - 18, y + 30, 36, 5, Color.FromArgb(255, 100, 70, 40));
+
+            // Arms
+            session.FillRectangle(x - 22, y + 15, 8, 18, Color.FromArgb(255, 100, 130, 180)); // Left arm
+            session.FillRectangle(x + 14, y + 15, 8, 18, Color.FromArgb(255, 100, 130, 180)); // Right arm
+
+            // Shoulders
+            session.FillEllipse(x - 18, y + 15, 6, 6, Color.FromArgb(255, 140, 160, 200));
+            session.FillEllipse(x + 18, y + 15, 6, 6, Color.FromArgb(255, 140, 160, 200));
+
+            // Head
+            session.FillEllipse(x, y - 5, 14, 16, Color.FromArgb(255, 255, 220, 180)); // Face
+
+            // Hair
+            session.FillRectangle(x - 14, y - 18, 28, 14, Color.FromArgb(255, 80, 60, 40)); // Hair
+            session.FillRectangle(x - 10, y - 20, 20, 4, Color.FromArgb(255, 80, 60, 40)); // Hair top
+
+            // Eyes
+            session.FillRectangle(x - 7, y - 5, 3, 3, Color.FromArgb(255, 50, 50, 50));
+            session.FillRectangle(x + 4, y - 5, 3, 3, Color.FromArgb(255, 50, 50, 50));
+
+            // Sword (held in right arm)
+            session.FillRectangle(x + 20, y + 15, 3, 35, Color.FromArgb(255, 180, 180, 200)); // Blade
+            session.FillRectangle(x + 18, y + 48, 7, 4, Color.FromArgb(255, 120, 100, 60)); // Handle
+            session.FillRectangle(x + 16, y + 45, 11, 3, Color.FromArgb(255, 200, 180, 100)); // Guard
+
+            // Shield (on left arm)
+            session.FillEllipse(x - 26, y + 20, 8, 10, Color.FromArgb(255, 150, 150, 180));
+            session.FillEllipse(x - 26, y + 20, 5, 7, Color.FromArgb(255, 100, 100, 140));
+
+            // Name below
+            session.DrawText(hero.Name, x - 30, y + 60, Colors.White,
+                new Microsoft.Graphics.Canvas.Text.CanvasTextFormat { FontSize = 16, FontWeight = Windows.UI.Text.FontWeights.Bold });
+        }
+
+        private void DrawEnemySprite(CanvasDrawingSession session, float x, float y, string enemyName)
+        {
+            // FF6-style monster sprite (menacing creature)
+
+            // Monster body (larger, menacing)
+            session.FillEllipse(x, y + 10, 50, 55, Color.FromArgb(255, 140, 50, 50)); // Main body
+            session.FillEllipse(x, y, 40, 45, Color.FromArgb(255, 180, 70, 70)); // Upper body
+
+            // Spikes/horns on top (left horn)
+            var leftHorn = new Microsoft.Graphics.Canvas.Geometry.CanvasPathBuilder(session);
+            leftHorn.BeginFigure(x - 25, y - 20);
+            leftHorn.AddLine(x - 15, y - 45);
+            leftHorn.AddLine(x - 10, y - 20);
+            leftHorn.EndFigure(Microsoft.Graphics.Canvas.Geometry.CanvasFigureLoop.Closed);
+            using (var geometry = Microsoft.Graphics.Canvas.Geometry.CanvasGeometry.CreatePath(leftHorn))
+            {
+                session.FillGeometry(geometry, Color.FromArgb(255, 100, 40, 40));
+            }
+
+            // Right horn
+            var rightHorn = new Microsoft.Graphics.Canvas.Geometry.CanvasPathBuilder(session);
+            rightHorn.BeginFigure(x + 10, y - 20);
+            rightHorn.AddLine(x + 15, y - 45);
+            rightHorn.AddLine(x + 25, y - 20);
+            rightHorn.EndFigure(Microsoft.Graphics.Canvas.Geometry.CanvasFigureLoop.Closed);
+            using (var geometry = Microsoft.Graphics.Canvas.Geometry.CanvasGeometry.CreatePath(rightHorn))
+            {
+                session.FillGeometry(geometry, Color.FromArgb(255, 100, 40, 40));
+            }
+
+            // Eyes (glowing)
+            session.FillEllipse(x - 18, y - 10, 12, 14, Color.FromArgb(255, 255, 50, 50)); // Left eye
+            session.FillEllipse(x - 18, y - 10, 8, 10, Color.FromArgb(255, 255, 200, 100)); // Eye glow
+
+            session.FillEllipse(x + 18, y - 10, 12, 14, Color.FromArgb(255, 255, 50, 50)); // Right eye
+            session.FillEllipse(x + 18, y - 10, 8, 10, Color.FromArgb(255, 255, 200, 100)); // Eye glow
+
+            // Mouth/fangs
+            session.FillRectangle(x - 15, y + 15, 30, 8, Color.FromArgb(255, 50, 20, 20)); // Mouth
+
+            // Left fang
+            var leftFang = new Microsoft.Graphics.Canvas.Geometry.CanvasPathBuilder(session);
+            leftFang.BeginFigure(x - 10, y + 15);
+            leftFang.AddLine(x - 7, y + 25);
+            leftFang.AddLine(x - 4, y + 15);
+            leftFang.EndFigure(Microsoft.Graphics.Canvas.Geometry.CanvasFigureLoop.Closed);
+            using (var geometry = Microsoft.Graphics.Canvas.Geometry.CanvasGeometry.CreatePath(leftFang))
+            {
+                session.FillGeometry(geometry, Colors.White);
+            }
+
+            // Right fang
+            var rightFang = new Microsoft.Graphics.Canvas.Geometry.CanvasPathBuilder(session);
+            rightFang.BeginFigure(x + 4, y + 15);
+            rightFang.AddLine(x + 7, y + 25);
+            rightFang.AddLine(x + 10, y + 15);
+            rightFang.EndFigure(Microsoft.Graphics.Canvas.Geometry.CanvasFigureLoop.Closed);
+            using (var geometry = Microsoft.Graphics.Canvas.Geometry.CanvasGeometry.CreatePath(rightFang))
+            {
+                session.FillGeometry(geometry, Colors.White);
+            }
+
+            // Arms/claws
+            session.FillEllipse(x - 45, y + 20, 15, 25, Color.FromArgb(255, 120, 60, 60)); // Left arm
+
+            // Left claw
+            var leftClaw = new Microsoft.Graphics.Canvas.Geometry.CanvasPathBuilder(session);
+            leftClaw.BeginFigure(x - 50, y + 35);
+            leftClaw.AddLine(x - 55, y + 45);
+            leftClaw.AddLine(x - 45, y + 40);
+            leftClaw.EndFigure(Microsoft.Graphics.Canvas.Geometry.CanvasFigureLoop.Closed);
+            using (var geometry = Microsoft.Graphics.Canvas.Geometry.CanvasGeometry.CreatePath(leftClaw))
+            {
+                session.FillGeometry(geometry, Color.FromArgb(255, 200, 200, 200));
+            }
+
+            session.FillEllipse(x + 45, y + 20, 15, 25, Color.FromArgb(255, 120, 60, 60)); // Right arm
+
+            // Right claw
+            var rightClaw = new Microsoft.Graphics.Canvas.Geometry.CanvasPathBuilder(session);
+            rightClaw.BeginFigure(x + 50, y + 35);
+            rightClaw.AddLine(x + 55, y + 45);
+            rightClaw.AddLine(x + 45, y + 40);
+            rightClaw.EndFigure(Microsoft.Graphics.Canvas.Geometry.CanvasFigureLoop.Closed);
+            using (var geometry = Microsoft.Graphics.Canvas.Geometry.CanvasGeometry.CreatePath(rightClaw))
+            {
+                session.FillGeometry(geometry, Color.FromArgb(255, 200, 200, 200));
+            }
+
+            // Body details/scales
+            for (int i = 0; i < 5; i++)
+            {
+                session.DrawEllipse(x - 15 + (i * 8), y + 5 + (i % 2) * 8, 4, 4, 
+                    Color.FromArgb(150, 100, 30, 30), 2);
             }
         }
 
@@ -319,6 +504,15 @@ namespace MysticChronicles
 
         private void GameTimer_Tick(object sender, object e)
         {
+            // Animate clouds/mist (only in battle)
+            if (gameState == GameState.Battle)
+            {
+                animationTime += 0.016f; // ~60fps
+                cloudOffset1 += 0.5f;
+                cloudOffset2 += 0.3f;
+                mistOffset += 0.2f;
+            }
+
             canvas.Invalidate();
         }
 

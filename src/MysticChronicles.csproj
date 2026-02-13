@@ -116,6 +116,15 @@
   <ItemGroup>
     <Content Include="Assets\BattleBackgrounds\City.png" />
     <Content Include="Assets\Cursor.png" />
+    <Content Include="Assets\Enemies\andromalius.png" />
+    <Content Include="Assets\Enemies\disciple.png" />
+    <Content Include="Assets\Enemies\gnu.png" />
+    <Content Include="Assets\Enemies\mage.png" />
+    <Content Include="Assets\Enemies\mage2.png" />
+    <Content Include="Assets\Enemies\mage3.png" />
+    <Content Include="Assets\Enemies\minion.png" />
+    <Content Include="Assets\Enemies\shadow.png" />
+    <Content Include="Assets\Enemies\tentacles.png" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\MainMenu.png" />
     <Content Include="Assets\SmallLogo.png" />
@@ -148,6 +157,9 @@
     <PackageReference Include="Win2D.uwp">
       <Version>1.27.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
