@@ -7,24 +7,95 @@
     <Grid Background="Black">
         <canvas:CanvasControl x:Name="canvas" Draw="Canvas_Draw" CreateResources="Canvas_CreateResources"/>
 
-        <!-- FF4 Style Status Box - Bottom Left -->
+        <!-- FF6 Style Character Status Box - Bottom Left -->
         <Border x:Name="statusBox"
                 BorderBrush="White" 
                 BorderThickness="3" 
                 Background="#FF0000AA"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="400"
+                Width="450"
                 Margin="20,0,0,20"
                 Padding="15">
-            <StackPanel>
-                <TextBlock x:Name="txtGameState" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI"/>
-                <TextBlock x:Name="txtHeroStats" Foreground="White" FontSize="16" Margin="0,5,0,0" FontFamily="Segoe UI"/>
-                <TextBlock x:Name="txtMessage" Foreground="Yellow" FontSize="14" Margin="0,10,0,0" TextWrapping="Wrap" FontFamily="Segoe UI"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Character Portrait Area (placeholder) -->
+                <Border Grid.Column="0" 
+                        BorderBrush="White" 
+                        BorderThickness="2" 
+                        Background="#FF000066"
+                        Width="70" 
+                        Height="70"
+                        VerticalAlignment="Top">
+                    <TextBlock Text="🗡️" 
+                               FontSize="40" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <!-- Character Stats -->
+                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                    <TextBlock x:Name="txtHeroName" 
+                               Text="Hero" 
+                               Foreground="Yellow" 
+                               FontSize="18" 
+                               FontWeight="Bold" 
+                               FontFamily="Segoe UI"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock Text="Lv" Foreground="White" FontSize="14" FontFamily="Segoe UI" Margin="0,0,5,0"/>
+                        <TextBlock x:Name="txtHeroLevel" Text="1" Foreground="White" FontSize="14" FontFamily="Segoe UI"/>
+                    </StackPanel>
+
+                    <!-- HP Bar -->
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock Text="HP" Foreground="White" FontSize="12" FontFamily="Segoe UI"/>
+                        <Grid Height="12" Margin="0,2,0,0">
+                            <Border Background="#FF333333" CornerRadius="2"/>
+                            <Border x:Name="hpBar" Background="#FF00FF00" HorizontalAlignment="Left" CornerRadius="2"/>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="2"/>
+                        </Grid>
+                        <TextBlock x:Name="txtHeroHP" Text="100/100" Foreground="White" FontSize="12" FontFamily="Segoe UI" Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <!-- MP Bar -->
+                    <StackPanel Margin="0,5,0,0">
+                        <TextBlock Text="MP" Foreground="White" FontSize="12" FontFamily="Segoe UI"/>
+                        <Grid Height="12" Margin="0,2,0,0">
+                            <Border Background="#FF333333" CornerRadius="2"/>
+                            <Border x:Name="mpBar" Background="#FFFFFF00" HorizontalAlignment="Left" CornerRadius="2"/>
+                            <Border BorderBrush="White" BorderThickness="1" CornerRadius="2"/>
+                        </Grid>
+                        <TextBlock x:Name="txtHeroMP" Text="50/50" Foreground="White" FontSize="12" FontFamily="Segoe UI" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
         </Border>
 
-        <!-- FF4 Style Battle Command Box - Bottom Right -->
+        <!-- FF6 Style Battle Message Box - Top -->
+        <Border x:Name="messageBox"
+                BorderBrush="White" 
+                BorderThickness="3" 
+                Background="#FF0000AA"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Width="600"
+                Margin="0,20,0,0"
+                Padding="15"
+                Visibility="Collapsed">
+            <TextBlock x:Name="txtBattleMessage" 
+                       Foreground="White" 
+                       FontSize="16" 
+                       TextWrapping="Wrap" 
+                       FontFamily="Segoe UI"
+                       HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- FF6 Style Battle Command Box - Bottom Right -->
         <Border x:Name="battleMenu" 
                 VerticalAlignment="Bottom" 
                 HorizontalAlignment="Right" 
@@ -35,21 +106,20 @@
                 Padding="20" 
                 Visibility="Collapsed">
             <StackPanel>
-                <TextBlock Text="Command" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,0,0,15" FontFamily="Segoe UI"/>
                 <StackPanel x:Name="battleCommandsPanel">
-                    <Grid Margin="0,5" Width="180">
+                    <Grid Margin="0,5" Width="200">
                         <Image x:Name="cursorAttack" Source="Assets/Cursor.png" Width="24" Height="24" HorizontalAlignment="Left" Visibility="Visible"/>
-                        <TextBlock x:Name="txtAttack" Text="Attack" Foreground="White" FontSize="24" FontFamily="Segoe UI" Margin="40,0,0,0" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="txtAttack" Text="Fight" Foreground="White" FontSize="24" FontFamily="Segoe UI" Margin="40,0,0,0" HorizontalAlignment="Left"/>
                     </Grid>
-                    <Grid Margin="0,5" Width="180">
+                    <Grid Margin="0,5" Width="200">
                         <Image x:Name="cursorMagic" Source="Assets/Cursor.png" Width="24" Height="24" HorizontalAlignment="Left" Visibility="Collapsed"/>
                         <TextBlock x:Name="txtMagic" Text="Magic" Foreground="White" FontSize="24" FontFamily="Segoe UI" Margin="40,0,0,0" HorizontalAlignment="Left"/>
                     </Grid>
-                    <Grid Margin="0,5" Width="180">
+                    <Grid Margin="0,5" Width="200">
                         <Image x:Name="cursorItem" Source="Assets/Cursor.png" Width="24" Height="24" HorizontalAlignment="Left" Visibility="Collapsed"/>
                         <TextBlock x:Name="txtItem" Text="Item" Foreground="White" FontSize="24" FontFamily="Segoe UI" Margin="40,0,0,0" HorizontalAlignment="Left"/>
                     </Grid>
-                    <Grid Margin="0,5" Width="180">
+                    <Grid Margin="0,5" Width="200">
                         <Image x:Name="cursorDefend" Source="Assets/Cursor.png" Width="24" Height="24" HorizontalAlignment="Left" Visibility="Collapsed"/>
                         <TextBlock x:Name="txtDefend" Text="Defend" Foreground="White" FontSize="24" FontFamily="Segoe UI" Margin="40,0,0,0" HorizontalAlignment="Left"/>
                     </Grid>
@@ -57,7 +127,7 @@
             </StackPanel>
         </Border>
 
-        <!-- FF4 Style In-Game Menu -->
+        <!-- FF6 Style In-Game Menu -->
         <Grid x:Name="inGameMenu" Visibility="Collapsed" Background="#DD000000">
             <Border BorderBrush="White" 
                     BorderThickness="4" 

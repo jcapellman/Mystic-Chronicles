@@ -106,6 +106,7 @@ namespace MysticChronicles
             battleSystem = new BattleSystem();
             inputManager = new InputManager();
 
+            MusicManager.PlayMusic(MusicTrack.Exploration);
             UpdateUI();
         }
 
@@ -535,7 +536,7 @@ namespace MysticChronicles
             if (battleSystem.CurrentEnemy == null) return;
 
             string result = battleSystem.ExecutePlayerAttack();
-            txtMessage.Text = result;
+            txtBattleMessage.Text = result;
 
             if (battleSystem.CurrentEnemy.CurrentHP <= 0)
             {
@@ -544,7 +545,7 @@ namespace MysticChronicles
             else
             {
                 string enemyAction = battleSystem.ExecuteEnemyTurn();
-                txtMessage.Text += "\n" + enemyAction;
+                txtBattleMessage.Text += "\n" + enemyAction;
 
                 if (hero.CurrentHP <= 0)
                 {
@@ -562,7 +563,7 @@ namespace MysticChronicles
                 hero.CurrentMP -= 10;
                 int damage = (int)(hero.Magic * 1.5);
                 battleSystem.CurrentEnemy.CurrentHP -= damage;
-                txtMessage.Text = $"{hero.Name} casts Fire! Deals {damage} damage!";
+                txtBattleMessage.Text = $"{hero.Name} casts Fire! Deals {damage} damage!";
 
                 if (battleSystem.CurrentEnemy.CurrentHP <= 0)
                 {
@@ -571,7 +572,7 @@ namespace MysticChronicles
                 else
                 {
                     string enemyAction = battleSystem.ExecuteEnemyTurn();
-                    txtMessage.Text += "\n" + enemyAction;
+                    txtBattleMessage.Text += "\n" + enemyAction;
 
                     if (hero.CurrentHP <= 0)
                     {
@@ -581,7 +582,7 @@ namespace MysticChronicles
             }
             else
             {
-                txtMessage.Text = "Not enough MP!";
+                txtBattleMessage.Text = "Not enough MP!";
             }
 
             UpdateUI();
@@ -590,10 +591,10 @@ namespace MysticChronicles
         private void ExecuteItemCommand()
         {
             hero.CurrentHP = Math.Min(hero.CurrentHP + 30, hero.MaxHP);
-            txtMessage.Text = $"{hero.Name} uses Potion! Restored 30 HP!";
+            txtBattleMessage.Text = $"{hero.Name} uses Potion! Restored 30 HP!";
 
             string enemyAction = battleSystem.ExecuteEnemyTurn();
-            txtMessage.Text += "\n" + enemyAction;
+            txtBattleMessage.Text += "\n" + enemyAction;
 
             if (hero.CurrentHP <= 0)
             {
@@ -609,7 +610,7 @@ namespace MysticChronicles
             hero.Defense = (int)(hero.Defense * 1.5);
 
             string enemyAction = battleSystem.ExecuteEnemyTurn();
-            txtMessage.Text = $"{hero.Name} defends!\n" + enemyAction;
+            txtBattleMessage.Text = $"{hero.Name} defends!\n" + enemyAction;
 
             hero.Defense = originalDefense;
 
@@ -629,23 +630,32 @@ namespace MysticChronicles
             if (victory)
             {
                 int expGained = 50;
-                txtMessage.Text = $"Victory! Gained {expGained} EXP!";
+                txtBattleMessage.Text = $"Victory! Gained {expGained} EXP!";
                 hero.CurrentHP = Math.Min(hero.CurrentHP + 20, hero.MaxHP);
                 hero.CurrentMP = Math.Min(hero.CurrentMP + 10, hero.MaxMP);
                 MusicManager.PlayMusic(MusicTrack.Victory);
 
-                // Return to exploration music after 5 seconds
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+                // Keep message box visible for victory message
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(3) };
                 timer.Tick += (s, e) =>
+                {
+                    messageBox.Visibility = Visibility.Collapsed;
+                    ((DispatcherTimer)s).Stop();
+                };
+                timer.Start();
+
+                // Return to exploration music after 5 seconds
+                var musicTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
+                musicTimer.Tick += (s, e) =>
                 {
                     MusicManager.PlayMusic(MusicTrack.Exploration);
                     ((DispatcherTimer)s).Stop();
                 };
-                timer.Start();
+                musicTimer.Start();
             }
             else
             {
-                txtMessage.Text = "Defeated! Game Over!";
+                txtBattleMessage.Text = "Defeated! Game Over!";
                 hero.CurrentHP = hero.MaxHP;
                 hero.CurrentMP = hero.MaxMP;
                 MusicManager.PlayMusic(MusicTrack.GameOver);
@@ -656,12 +666,40 @@ namespace MysticChronicles
 
         private void UpdateUI()
         {
-            txtGameState.Text = $"Mode: {gameState}";
-            txtHeroStats.Text = $"{hero.Name} - Lv.{hero.Level} | HP: {hero.CurrentHP}/{hero.MaxHP} | MP: {hero.CurrentMP}/{hero.MaxMP}";
+            // Update character info
+            txtHeroName.Text = hero.Name;
+            txtHeroLevel.Text = hero.Level.ToString();
+            txtHeroHP.Text = $"{hero.CurrentHP}/{hero.MaxHP}";
+            txtHeroMP.Text = $"{hero.CurrentMP}/{hero.MaxMP}";
 
-            if (gameState == GameState.Battle && battleSystem != null && battleSystem.CurrentEnemy != null)
+            // Update HP bar width (FF6 style)
+            double hpPercent = (double)hero.CurrentHP / hero.MaxHP;
+            hpBar.Width = 250 * hpPercent;
+
+            // Change HP bar color based on health
+            if (hpPercent > 0.5)
+                hpBar.Background = new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Green);
+            else if (hpPercent > 0.25)
+                hpBar.Background = new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Yellow);
+            else
+                hpBar.Background = new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Red);
+
+            // Update MP bar width
+            double mpPercent = (double)hero.CurrentMP / hero.MaxMP;
+            mpBar.Width = 250 * mpPercent;
+
+            // Show message box during battle
+            if (gameState == GameState.Battle)
             {
-                txtMessage.Text = $"Enemy: {battleSystem.CurrentEnemy.Name} | HP: {battleSystem.CurrentEnemy.CurrentHP}/{battleSystem.CurrentEnemy.MaxHP}";
+                messageBox.Visibility = Visibility.Visible;
+                if (battleSystem != null && battleSystem.CurrentEnemy != null)
+                {
+                    txtBattleMessage.Text = $"Enemy: {battleSystem.CurrentEnemy.Name} | HP: {battleSystem.CurrentEnemy.CurrentHP}/{battleSystem.CurrentEnemy.MaxHP}";
+                }
+            }
+            else
+            {
+                messageBox.Visibility = Visibility.Collapsed;
             }
         }
 
