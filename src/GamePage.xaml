@@ -1,8 +1,9 @@
-<local:BasePage
+<gore:BasePage
     x:Class="MysticChronicles.GamePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:gore="using:GORE.Core.Pages"
     xmlns:local="using:MysticChronicles">
 
     <Grid Background="Black">
@@ -158,4 +159,4 @@
             </Border>
         </Grid>
     </Grid>
-</local:BasePage>
+</gore:BasePage>

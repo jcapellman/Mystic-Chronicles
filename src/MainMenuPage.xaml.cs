@@ -3,7 +3,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
 using Windows.System;
-using MysticChronicles.Services;
+using GORE.Core.Services;
+using GORE.Core.Models;
+using GORE.Core.Pages;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Windows.UI;
 

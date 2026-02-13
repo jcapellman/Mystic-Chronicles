@@ -7,9 +7,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Popups;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using MysticChronicles.Models;
-using MysticChronicles.GameEngine;
-using MysticChronicles.Services;
+using GORE.Core.Models;
+using GORE.Core.GameEngine;
+using GORE.Core.Services;
+using GORE.Core.Pages;
 
 namespace MysticChronicles
 {
