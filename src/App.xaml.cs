@@ -5,6 +5,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
+using GORE.Pages;
+using GORE.Services;
+
 namespace MysticChronicles
 {
     sealed partial class App : Application
@@ -17,17 +20,10 @@ namespace MysticChronicles
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                }
-
                 Window.Current.Content = rootFrame;
             }
 
@@ -35,32 +31,25 @@ namespace MysticChronicles
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(MainMenuPage), e.Arguments);
+                    // Activate window BEFORE navigation (required for Win2D)
+                    Window.Current.Activate();
+
+                    try
+                    {
+                        rootFrame.Navigate(typeof(MainMenuPage), e.Arguments);
+
+                        // TEMPORARILY DISABLED to isolate the issue
+                        // GoreEngine.ApplyGameMode();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the full exception details
+                        System.Diagnostics.Debug.WriteLine($"Navigation exception: {ex}");
+                        System.Diagnostics.Debug.WriteLine($"Inner exception: {ex.InnerException}");
+                        throw;
+                    }
                 }
-
-                // Enter full screen mode and hide cursor globally for entire game session
-                EnterFullScreenMode();
-                HideCursor();
-
-                Window.Current.Activate();
             }
-        }
-
-        /// <summary>
-        /// Enter full screen mode for immersive RPG experience
-        /// </summary>
-        private void EnterFullScreenMode()
-        {
-            var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
-            view.TryEnterFullScreenMode();
-        }
-
-        /// <summary>
-        /// Hide system cursor for entire game session (keyboard/gamepad only)
-        /// </summary>
-        private void HideCursor()
-        {
-            Window.Current.CoreWindow.PointerCursor = null;
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
@@ -71,6 +60,7 @@ namespace MysticChronicles
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
+            GoreEngine.Shutdown();
             deferral.Complete();
         }
     }

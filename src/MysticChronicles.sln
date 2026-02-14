@@ -5,6 +5,8 @@ VisualStudioVersion = 18.3.11505.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysticChronicles", "MysticChronicles.csproj", "{A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GORE", "..\..\GORE-Engine\src\GORE.csproj", "{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -33,6 +35,18 @@ Global
 		{A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D}.Release|x86.ActiveCfg = Release|x86
 		{A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D}.Release|x86.Build.0 = Release|x86
 		{A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D}.Release|x86.Deploy.0 = Release|x86
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Debug|x64.ActiveCfg = Debug|x64
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Debug|x64.Build.0 = Debug|x64
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Debug|x86.Build.0 = Debug|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Release|ARM.Build.0 = Release|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Release|x64.ActiveCfg = Release|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Release|x64.Build.0 = Release|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Release|x86.ActiveCfg = Release|Any CPU
+		{F8B3C7D4-E5A6-4B7C-9D8E-0F1A2B3C4D5E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

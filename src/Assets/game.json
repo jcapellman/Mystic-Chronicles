@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mystic Chronicles Configuration",
+  "description": "GORE Engine configuration for Mystic Chronicles RPG",
+
+  "game": {
+    "title": "Mystic Chronicles",
+    "version": "1.0.0",
+    "developer": "Jarred Capellman",
+    "description": "A classic Final Fantasy VI-inspired RPG"
+  },
+
+  "characterCreation": {
+    "prompt": "Enter your hero's name:",
+    "defaultName": "Hero",
+    "maxNameLength": 20,
+    "confirmText": "Confirm",
+    "cancelText": "Cancel"
+  },
+
+  "assets": {
+    "mainMenuBackground": "Assets/MainMenu.png",
+    "logo": "Assets/Logo.png",
+    "cursor": "Assets/Cursor.png",
+    "font": "Segoe UI"
+  },
+
+  "music": {
+    "mainMenu": "Assets/Music/MainMenu.mp3",
+    "exploration": "Assets/Music/Exploration.mp3",
+    "battle": "Assets/Music/Battle.mp3",
+    "victory": "Assets/Music/Victory.mp3",
+    "gameOver": "Assets/Music/GameOver.mp3"
+  },
+
+  "battleBackgrounds": [
+    "Assets/BattleBackgrounds/City.png",
+    "Assets/BattleBackgrounds/Forest.png",
+    "Assets/BattleBackgrounds/Cave.png"
+  ],
+
+  "sprites": {
+    "heroes": "Assets/Sprites/Heroes/",
+    "enemies": "Assets/Sprites/Enemies/"
+  },
+
+  "gameplay": {
+    "startingLevel": 1,
+    "startingHP": 100,
+    "startingMP": 50,
+    "startingAttack": 20,
+    "startingDefense": 15,
+    "startingMagic": 18,
+    "startingSpeed": 12,
+    "encounterRate": 10,
+    "expMultiplier": 1.0,
+    "mapWidth": 20,
+    "mapHeight": 15
+  },
+
+  "ui": {
+    "theme": "FF6Blue",
+    "borderColor": "#FFFFFF",
+    "backgroundColor": "#0000AA",
+    "hpBarColors": {
+      "high": "#00FF00",
+      "medium": "#FFFF00",
+      "low": "#FF0000"
+    },
+    "mpBarColor": "#FFFF00",
+    "tileSize": 32
+  },
+
+  "battle": {
+    "commands": [
+      {
+        "name": "Fight",
+        "type": "attack"
+      },
+      {
+        "name": "Magic",
+        "type": "magic",
+        "mpCost": 10,
+        "damageMultiplier": 1.5
+      },
+      {
+        "name": "Item",
+        "type": "item",
+        "healAmount": 30
+      },
+      {
+        "name": "Defend",
+        "type": "defend",
+        "defenseMultiplier": 1.5
+      }
+    ]
+  }
+}
